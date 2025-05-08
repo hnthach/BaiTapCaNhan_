@@ -59,7 +59,7 @@ Báo cáo đồ án cá nhân (8-puzzles)
 	   + Hàm tìm trạng thái lân cận:
 		   . Giống BFS: Tìm vị trí ô trống và duyệt 4 hướng di chuyển (trên, dưới, trái, phải)
 		   . Trong code: Dùng find_blank() để xác định vị trí, tính toán vị trí mới và gọi swap_tiles() để tạo new_state
-      - Solution từ DFS:
+   - Solution từ DFS:
 	   + Đặc điểm của lời giải:
 		   . Không đảm bảo tối ưu: Solution có thể dài hơn nhiều so với solution ngắn nhất mà BFS tìm được
 		   . Phụ thuộc vào thứ tự duyệt: Thay đổi thứ tự duyệt các hướng (UP, DOWN, LEFT, RIGHT) sẽ cho solution khác nhau
