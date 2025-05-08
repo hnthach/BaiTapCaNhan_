@@ -136,4 +136,9 @@ Báo cáo đồ án cá nhân (8-puzzles)
 	   - UCS tối ưu về chi phí thay vì độ dài đường đi. Khi chi phí mỗi bước giống nhau, UCS tương đương BFS. Tuy nhiên, UCS tiêu tốn bộ nhớ lớn do dùng hàng đợi ưu tiên để xử lý trạng thái theo tổng chi phí thấp nhất.
    
    ```
+2.2 Các thuật toán tìm kiếm có thông tin (Informed Search)
+```
+2.2.1 Các thành phần chính của bài toán tìm kiếm và solution
+a. Thuật toán A*
 
+```
