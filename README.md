@@ -166,41 +166,38 @@ a. Thuật toán A*
 		· Các ô di chuyển được highlight để trực quan theo dõi đường đi
 
 b. Thuật toán IDA*
+* Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed%20Search/IDA_Star.gif?raw=true)
+- Các thành phần chính
+	+ Hàm heuristic (Manhattan Distance)
+		· Sử dụng khoảng cách Manhattan để đánh giá chi phí còn lại
+		· Bảo đảm tính admissible, giúp tìm được lời giải tối ưu
+	+ Hàm tìm kiếm chính (ida_star_search)
+		· Khởi tạo giới hạn (threshold) bằng heuristic của trạng thái bắt đầu
+		· Lặp lại quá trình tìm kiếm với ngưỡng tăng dần cho đến khi tìm được lời giải
+	+ Hàm tìm kiếm đệ quy (search)
+		· g: chi phí từ trạng thái bắt đầu đến trạng thái hiện tại
+		· f = g + h: tổng chi phí dự đoán
+		· Nếu f > threshold: trả về chi phí f làm ngưỡng mới
+		· Nếu tìm thấy trạng thái đích: trả về lời giải
+		· Nếu không: duyệt các trạng thái kề bằng cách di chuyển ô trống
+	+ Phần mở rộng trạng thái
+		· Sinh các trạng thái mới từ các hướng di chuyển hợp lệ của ô trống
+		· Tránh lặp lại trạng thái đã đi bằng cách kiểm tra trong path
+		· Gọi đệ quy search với g + 1 và cập nhật ngưỡng nhỏ nhất nếu cần
+	+ Vòng lặp chính
+		· Cập nhật threshold nếu không tìm được lời giải ở lần lặp hiện tại
+		· Lặp đến khi tìm được hoặc không thể tiếp tục (inf)
+- Solution từ IDA*
+	+ Đặc điểm
+		· Tối ưu: luôn tìm đường đi ngắn nhất nếu heuristic đúng
+		· Tiết kiệm bộ nhớ: chỉ lưu trạng thái trên đường đi hiện tại
+		· Tìm kiếm lặp lại theo mức f, phù hợp cho không gian trạng thái lớn
+	+ Hiển thị trong chương trình
+		· Solution được mô phỏng từng bước với độ trễ STEP_DELAY = 300ms
+		· Thời gian thực thi được in ra màn hình
+		· Các ô thay đổi được highlight rõ ràng khi di chuyển
+
+c. Greedy
 * Hình ảnh gif mô tả thuật toán: (
-Các thành phần chính
-Hàm heuristic (Manhattan Distance)
-· Sử dụng khoảng cách Manhattan để đánh giá chi phí còn lại
-· Bảo đảm tính admissible, giúp tìm được lời giải tối ưu
-
-Hàm tìm kiếm chính (ida_star_search)
-· Khởi tạo giới hạn (threshold) bằng heuristic của trạng thái bắt đầu
-· Lặp lại quá trình tìm kiếm với ngưỡng tăng dần cho đến khi tìm được lời giải
-
-Hàm tìm kiếm đệ quy (search)
-· g: chi phí từ trạng thái bắt đầu đến trạng thái hiện tại
-· f = g + h: tổng chi phí dự đoán
-· Nếu f > threshold: trả về chi phí f làm ngưỡng mới
-· Nếu tìm thấy trạng thái đích: trả về lời giải
-· Nếu không: duyệt các trạng thái kề bằng cách di chuyển ô trống
-
-Phần mở rộng trạng thái
-· Sinh các trạng thái mới từ các hướng di chuyển hợp lệ của ô trống
-· Tránh lặp lại trạng thái đã đi bằng cách kiểm tra trong path
-· Gọi đệ quy search với g + 1 và cập nhật ngưỡng nhỏ nhất nếu cần
-
-Vòng lặp chính
-· Cập nhật threshold nếu không tìm được lời giải ở lần lặp hiện tại
-· Lặp đến khi tìm được hoặc không thể tiếp tục (inf)
-
-Solution từ IDA*
-Đặc điểm
-· Tối ưu: luôn tìm đường đi ngắn nhất nếu heuristic đúng
-· Tiết kiệm bộ nhớ: chỉ lưu trạng thái trên đường đi hiện tại
-· Tìm kiếm lặp lại theo mức f, phù hợp cho không gian trạng thái lớn
-
-Hiển thị trong chương trình
-· Solution được mô phỏng từng bước với độ trễ STEP_DELAY = 300ms
-· Thời gian thực thi được in ra màn hình
-· Các ô thay đổi được highlight rõ ràng khi di chuyển
 
 ```
