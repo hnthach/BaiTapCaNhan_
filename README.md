@@ -223,5 +223,31 @@ c. Greedy
 		. Các bước di chuyển được highlight nếu chương trình có hỗ trợ
 
 2.2.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm có thông tin
+https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed%20Search/SoSanhHieuSuat_Informed%20Search.gif?raw=true
 
+2.1.3 Nhận xét về hiệu suất các thuật toán
+- A*
+      + Ưu điểm
+	        • Tìm được lời giải tối ưu (ngắn nhất) nếu tồn tại
+	        • Hiệu quả khi sử dụng heuristic Manhattan Distance
+	        • Thời gian chạy tốt trong hầu hết các trường hợp
+      + Nhược điểm
+	        • Tiêu tốn bộ nhớ do phải lưu trữ nhiều trạng thái
+	        • Quá phức tạp khi kích thước của puzzle tăng lên
+
+- UCS (Uniform Cost Search)
+      + Ưu điểm
+	        • Tìm được lời giải tối ưu như A*
+	        • Đơn giản hơn A*
+      + Nhược điểm
+	        • Chậm hơn A* do không sử dụng heuristic
+	        • Duyệt nhiều node không cần thiết
+
+-  Greedy Best-First Search
+      + Ưu điểm
+	        • Tìm kiếm nhanh trong nhiều trường hợp
+	        • Tập trung vào mục tiêu, giúp giảm thời gian tìm kiếm
+      + Nhược điểm
+	        • Không đảm bảo tìm được lời giải tối ưu
+	        • Dễ rơi vào trạng thái local optima (tối ưu cục bộ)
 ```
