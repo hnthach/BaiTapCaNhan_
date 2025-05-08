@@ -222,4 +222,6 @@ c. Greedy
 		. Thông tin thời gian thực thi được hiển thị
 		. Các bước di chuyển được highlight nếu chương trình có hỗ trợ
 
+2.2.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm có thông tin
+
 ```
