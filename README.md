@@ -251,3 +251,9 @@ https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed
 	        • Không đảm bảo tìm được lời giải tối ưu
 	        • Dễ rơi vào trạng thái local optima (tối ưu cục bộ)
 ```
+2.3 Các thuật toán tìm kiếm nội bộ
+```
+2.3.1 Các thành phần chính của bài toán tìm kiếm và solution
+a. Thuật toán simple hill climbing
+
+```
