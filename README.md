@@ -281,5 +281,35 @@ a. Thuật toán simple hill climbing
 		. Các trạng thái chuyển tiếp có thể được highlight để minh họa quá trình "leo đồi"
 
 b. Thuật toán Steepest ascent hill climbing
+*Hình ảnh gif mô tả thuật toán: https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/3.%20Local%20Search/Steepest%20Hill.gif?raw=true
+- Các thành phần chính
+	+ Hàm heuristic (Manhattan Distance)
+		. Sử dụng khoảng cách Manhattan để đo độ gần tới goal
+		. Chỉ xét h(n), không tính g(n) như A*, UCS
+	+ Hàm chính (steepest_hill_climbing)
+		. Khởi tạo từ trạng thái start, lưu path và tập visited
+		. Duyệt tối đa max_steps để giới hạn số lần lặp
+		. Ở mỗi bước, tìm trạng thái hàng xóm có h(n) thấp nhất ("steepest descent")
+	+ Hàm mở rộng trạng thái (Neighbor Generation)
+		. Tạo các trạng thái hợp lệ bằng cách di chuyển ô trống
+		. Chỉ xét các trạng thái chưa từng duyệt
+		. Sắp xếp tất cả hàng xóm theo heuristic tăng dần
+		. Lấy ra trạng thái có h thấp nhất và cập nhật nếu tốt hơn (hoặc ngang bằng)
+	+ Chiến lược Leo đồi Dốc nhất (Steepest Ascent)
+		. Nếu tìm thấy hàng xóm có heuristic tốt hơn → cập nhật
+		. Nếu chỉ có hàng xóm ngang bằng → chọn ngẫu nhiên trong số đó
+		. Nếu không còn hàng xóm chưa duyệt tốt hơn → có thể chọn ngẫu nhiên để thoát local optima
+		. Nếu vẫn không có hướng đi mới → kết thúc (kẹt tại đỉnh cục bộ)
+- Solution từ Steepest Hill Climbing
+	+ Đặc điểm
+		. Chọn hướng đi tốt nhất ở mỗi bước, không lưỡng lự như simple hill climbing
+		. Có thể giúp tránh một số local optima hơn so với phiên bản đơn giản
+		. Tuy nhiên vẫn có thể mắc kẹt nếu không có cải thiện rõ rệt
+	+ Hiển thị trong chương trình
+		. Hiển thị đường đi từng bước nếu tìm thấy solution
+		. Có thể minh họa trạng thái bị kẹt khi không còn hướng đi tốt hơn
+		. Thông tin số bước đã duyệt, thời gian thực thi có thể được in ra để đánh giá hiệu suất
 
+b. Thuật toán Stochastic hill climbing
+*Hình ảnh gif mô tả thuật toán:
 ```
