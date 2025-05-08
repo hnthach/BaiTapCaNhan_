@@ -10,7 +10,3 @@ Mục tiêu của bài tập cá nhân này là áp dụng các nhóm thuật to
 	- So sánh, đánh giá hiệu suất giữa các thuật toán về số bước giải, thời gian thực thi, và khả năng tìm lời giải tối ưu.
 	- Tăng cường khả năng phân tích và lựa chọn thuật toán phù hợp cho các bài toán tương tự trong thực tế.
 '''
-2.Nội dung
-
-2.1 Các thuật toán tìm kiếm không có thông tin (Uninformed Search)  
-
