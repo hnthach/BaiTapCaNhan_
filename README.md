@@ -14,5 +14,4 @@ giải quyết ràng buộc (CSP) và học tăng cường (reinforcement learni
 ```
 
 2. Nội dung
-
 2.1. Các thuật toán tìm kiếm không có thông tin ( Uninformed Search )
