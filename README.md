@@ -339,7 +339,7 @@ c. Thuật toán Stochastic hill climbing
 		. Đường đi thường dài hơn so với các thuật toán tối ưu như A*, nhưng khả năng tìm được lời giải trong nhiều tình huống kẹt cao hơn
 
 d. Thuật toán Beam Search
-*Hình ảnh gif mô tả thuật toán: (
+*Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/3.%20Local%20Search/Beam%20Search.gif?raw=true)
 - Các thành phần chính:
 	+ Hàm heuristic (Manhattan Distance)
 		. Dùng để đánh giá mức độ gần với trạng thái đích
@@ -363,4 +363,5 @@ d. Thuật toán Beam Search
 		. Lời giải là chuỗi các trạng thái từ start đến goal, hoặc trạng thái gần nhất trong chùm nếu không tìm thấy lời giải
 		. Có thể in ra số bước đi, các trạng thái trong chùm tại mỗi bước để minh họa cơ chế chọn lọc
 		. Thích hợp để chạy nhanh với kích thước chùm vừa phải, nhưng cần điều chỉnh beam_width hợp lý để đảm bảo không bỏ sót lời giải
+
 ```
