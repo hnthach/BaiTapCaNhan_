@@ -198,6 +198,28 @@ b. Thuật toán IDA*
 		· Các ô thay đổi được highlight rõ ràng khi di chuyển
 
 c. Greedy
-* Hình ảnh gif mô tả thuật toán: (
+* Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed%20Search/Greedy.gif?raw=true)
+- Các thành phần chính
+	+ Hàm heuristic (Manhattan Distance)
+		. Ưu tiên mở rộng trạng thái có giá trị heuristic nhỏ nhất (gần goal nhất theo khoảng cách Manhattan)
+		. Heuristic được dùng như tiêu chí duy nhất (không tính chi phí g thực tế như A*)
+	+ Hàng đợi ưu tiên (Priority Queue)
+		. Sắp xếp các trạng thái theo h(n) (heuristic)
+		. Dùng heapq để chọn trạng thái "gần đích nhất" theo đánh giá của heuristic
+	+ Tập hợp các trạng thái đã xét (Visited Set)
+		. Tránh lặp lại các trạng thái đã mở rộng
+		. Giúp cải thiện hiệu suất, tránh vòng lặp
+	+ Hàm mở rộng trạng thái (Neighbor Function)
+		. Tạo các trạng thái mới bằng cách di chuyển ô trống theo các hướng hợp lệ
+		. Chỉ thêm vào queue nếu chưa được duyệt
+- Solution từ Greedy
+	+ Đặc điểm
+		. Tập trung tối đa vào hướng đến goal, bỏ qua chi phí đã đi (g(n) không được tính)
+		. Có thể không tìm ra đường đi ngắn nhất
+		. Chạy nhanh và tiết kiệm bộ nhớ hơn A*, nhưng có thể đi sai hướng nếu heuristic không tốt
+	+ Hiển thị trong chương trình
+		. Hiển thị lời giải từng bước (nếu tìm được), sử dụng delay cố định (STEP_DELAY)
+		. Thông tin thời gian thực thi được hiển thị
+		. Các bước di chuyển được highlight nếu chương trình có hỗ trợ
 
 ```
