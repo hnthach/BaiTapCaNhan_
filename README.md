@@ -45,5 +45,9 @@ Báo cáo đồ án cá nhân (8-puzzles)
 		   . Thông số điều khiển: Độ trễ được điều chỉnh qua biến STEP_DELAY
 	   + Đánh giá hiệu suất thuật toán:
 		   . Thời gian thực thi: Được tính từ lúc bắt đầu đến khi tìm ra lời giải với đồ phức tạp O(b^d) và hiển thị trên giao diện
+   b. DFS
+   * Hình ảnh gif mô tả thuật toán: ![DFS](https://github.com/user-attachments/assets/75eaded7-e057-41d3-b0e8-8237aa74e1d2)
+   
+
    ```
 
