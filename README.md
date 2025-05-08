@@ -18,7 +18,9 @@ Báo cáo đồ án cá nhân (8-puzzles)
    ```
    2.1.1 Các thành phần chính của bài toán tìm kiếm và solution
    a. BFS
-   Hình ảnh gif mô tả thuật toán: ![BFS](https://github.com/user-attachments/assets/31a8c27b-4e7e-4b03-8477-9080f74e4fc7)
+   * Hình ảnh gif mô tả thuật toán: ![BFS](https://github.com/user-attachments/assets/31a8c27b-4e7e-4b03-8477-9080f74e4fc7)
+   - Các thành phần chính:
+   
 
    ```
 
