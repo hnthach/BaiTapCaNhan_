@@ -310,7 +310,7 @@ b. Thuật toán Steepest ascent hill climbing
 		. Có thể minh họa trạng thái bị kẹt khi không còn hướng đi tốt hơn
 		. Thông tin số bước đã duyệt, thời gian thực thi có thể được in ra để đánh giá hiệu suất
 
-b. Thuật toán Stochastic hill climbing
+c. Thuật toán Stochastic hill climbing
 *Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/3.%20Local%20Search/Stochastic%20hill.gif?raw=true)
 - Các thành phần chính
 	+ Hàm heuristic (Manhattan Distance)
@@ -337,4 +337,30 @@ b. Thuật toán Stochastic hill climbing
 	+ Hiển thị trong chương trình
 		. Có thể in ra từng trạng thái đã đi qua và thời điểm “chấp nhận đi lùi” để minh họa khả năng thoát kẹt
 		. Đường đi thường dài hơn so với các thuật toán tối ưu như A*, nhưng khả năng tìm được lời giải trong nhiều tình huống kẹt cao hơn
+
+d. Thuật toán Beam Search
+*Hình ảnh gif mô tả thuật toán: (
+- Các thành phần chính:
+	+ Hàm heuristic (Manhattan Distance)
+		. Dùng để đánh giá mức độ gần với trạng thái đích
+		. Chỉ sử dụng h(n) – giống như Greedy, không xét chi phí thực tế g(n)
+	+ Hàm chính (beam_search)
+		. Khởi tạo current_states chứa trạng thái bắt đầu kèm giá trị heuristic và đường đi
+		. Duyệt trong tối đa max_steps bước
+		. Mỗi vòng lặp mở rộng tất cả trạng thái hiện tại → sinh trạng thái kế cận
+		. Chọn beam_width trạng thái tốt nhất để tiếp tục (theo heuristic thấp nhất)
+	+ Chiến lược tìm kiếm chùm (Beam Search)
+		. Tại mỗi bước, chỉ giữ lại số lượng trạng thái giới hạn (beam_width)
+		. Các trạng thái được chọn dựa theo giá trị heuristic tốt nhất, bỏ qua phần lớn không gian tìm kiếm
+		. Do vậy, đây là thuật toán tìm kiếm theo chiều rộng có chọn lọc
+	- Solution từ Beam Search
+	+ Đặc điểm
+		. Tập trung vào các trạng thái triển vọng nhất bằng cách chỉ giữ lại một số trạng thái tốt nhất tại mỗi bước (theo manhattan_distance)
+		. Có thể bỏ qua lời giải tối ưu nếu nằm ngoài chùm, vì không duyệt toàn bộ không gian trạng thái
+		. Hiệu quả cao về bộ nhớ hơn so với A* hay BFS vì chỉ giữ một số lượng trạng thái giới hạn (theo beam_width)
+		. Dễ bị mắc kẹt nếu beam_width quá nhỏ hoặc không có trạng thái nào khả thi trong chùm
+	+ Hiển thị trong chương trình
+		. Lời giải là chuỗi các trạng thái từ start đến goal, hoặc trạng thái gần nhất trong chùm nếu không tìm thấy lời giải
+		. Có thể in ra số bước đi, các trạng thái trong chùm tại mỗi bước để minh họa cơ chế chọn lọc
+		. Thích hợp để chạy nhanh với kích thước chùm vừa phải, nhưng cần điều chỉnh beam_width hợp lý để đảm bảo không bỏ sót lời giải
 ```
