@@ -140,5 +140,67 @@ Báo cáo đồ án cá nhân (8-puzzles)
 ```
 2.2.1 Các thành phần chính của bài toán tìm kiếm và solution
 a. Thuật toán A*
+* Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed%20Search/A_Star.gif?raw=true)
+- Các thành phần chính:
+	+ Hàm heuristic (Manhattan Distance)
+		· Tính tổng khoảng cách hàng và cột giữa vị trí hiện tại và vị trí đích của mỗi ô
+		· Là heuristic admissible nên đảm bảo không đánh giá thấp chi phí thực tế
+	+ Hàng đợi ưu tiên (Priority Queue)
+		· Luôn mở rộng trạng thái có tổng chi phí f(n) = g(n) + h(n) thấp nhất
+		· Sử dụng heapq để đảm bảo truy xuất nhanh phần tử có f nhỏ nhất
+	+ Tập trạng thái đã xét (Visited Set)
+		· Tránh lặp lại trạng thái đã duyệt, giúp giảm thời gian và tiết kiệm bộ nhớ
+		· Kiểm tra nhanh bằng set
+	+ Hàm tạo trạng thái mới (Neighbor Generation)
+		· Tạo trạng thái mới bằng cách di chuyển ô trống theo 4 hướng
+		· Cập nhật chi phí g(n) + 1 và tính lại f(n)
+- Solution từ UCS:
+	+ Đặc điểm
+		· Luôn tìm ra lời giải ngắn nhất nếu tồn tại, nhờ heuristic chính xác
+		· Hiệu quả hơn BFS/UCS vì có định hướng nhờ hàm ước lượng
+		· Phụ thuộc vào chất lượng heuristic — càng sát thực tế, thời gian chạy càng tốt
+	
+	+ Hiển thị trong chương trình
+		· Hiển thị từng bước trong lời giải với STEP_DELAY = 300ms
+		· Thời gian thực thi được in ra: "Time: x.xxxx seconds"
+		· Các ô di chuyển được highlight để trực quan theo dõi đường đi
+
+b. Thuật toán IDA*
+* Hình ảnh gif mô tả thuật toán: (
+Các thành phần chính
+Hàm heuristic (Manhattan Distance)
+· Sử dụng khoảng cách Manhattan để đánh giá chi phí còn lại
+· Bảo đảm tính admissible, giúp tìm được lời giải tối ưu
+
+Hàm tìm kiếm chính (ida_star_search)
+· Khởi tạo giới hạn (threshold) bằng heuristic của trạng thái bắt đầu
+· Lặp lại quá trình tìm kiếm với ngưỡng tăng dần cho đến khi tìm được lời giải
+
+Hàm tìm kiếm đệ quy (search)
+· g: chi phí từ trạng thái bắt đầu đến trạng thái hiện tại
+· f = g + h: tổng chi phí dự đoán
+· Nếu f > threshold: trả về chi phí f làm ngưỡng mới
+· Nếu tìm thấy trạng thái đích: trả về lời giải
+· Nếu không: duyệt các trạng thái kề bằng cách di chuyển ô trống
+
+Phần mở rộng trạng thái
+· Sinh các trạng thái mới từ các hướng di chuyển hợp lệ của ô trống
+· Tránh lặp lại trạng thái đã đi bằng cách kiểm tra trong path
+· Gọi đệ quy search với g + 1 và cập nhật ngưỡng nhỏ nhất nếu cần
+
+Vòng lặp chính
+· Cập nhật threshold nếu không tìm được lời giải ở lần lặp hiện tại
+· Lặp đến khi tìm được hoặc không thể tiếp tục (inf)
+
+Solution từ IDA*
+Đặc điểm
+· Tối ưu: luôn tìm đường đi ngắn nhất nếu heuristic đúng
+· Tiết kiệm bộ nhớ: chỉ lưu trạng thái trên đường đi hiện tại
+· Tìm kiếm lặp lại theo mức f, phù hợp cho không gian trạng thái lớn
+
+Hiển thị trong chương trình
+· Solution được mô phỏng từng bước với độ trễ STEP_DELAY = 300ms
+· Thời gian thực thi được in ra màn hình
+· Các ô thay đổi được highlight rõ ràng khi di chuyển
 
 ```
