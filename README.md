@@ -44,6 +44,6 @@ Báo cáo đồ án cá nhân (8-puzzles)
 		   . Cách hiển thị: Từng trạng thái trong đường đi được hiển thị lần lượt, có độ trễ giữa các bước để quan sát rõ ràng
 		   . Thông số điều khiển: Độ trễ được điều chỉnh qua biến STEP_DELAY
 	   + Đánh giá hiệu suất thuật toán:
-		   . Thời gian thực thi: Được tính từ lúc bắt đầu đến khi tìm ra lời giải và hiển thị trên giao diện
+		   . Thời gian thực thi: Được tính từ lúc bắt đầu đến khi tìm ra lời giải với đồ phức tạp O(b^d) và hiển thị trên giao diện
    ```
 
