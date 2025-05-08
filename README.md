@@ -255,5 +255,31 @@ https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed
 ```
 2.3.1 Các thành phần chính của bài toán tìm kiếm và solution
 a. Thuật toán simple hill climbing
+- Các thành phần chính
+	+ Hàm heuristic (Manhattan Distance)
+		. Sử dụng khoảng cách Manhattan để đánh giá mức độ gần goal
+		. Chỉ sử dụng h(n), không xét chi phí g(n) từ start → node như A*
+	+ Hàm chính (simple_hill_climbing)
+		. Bắt đầu từ trạng thái start, đánh giá heuristic ban đầu
+		. Duyệt qua tối đa max_steps bước để tránh lặp vô hạn
+		. Lưu đường đi trong path và theo dõi các trạng thái đã duyệt bằng visited
+	+ Hàm mở rộng trạng thái (Neighbor Generation)
+		. Tạo các trạng thái hợp lệ bằng cách di chuyển ô trống
+		. Chỉ xét các trạng thái chưa được duyệt
+		. Sắp xếp các trạng thái theo heuristic và chọn trạng thái tốt hơn hoặc bằng hiện tại
+	+ Chiến lược leo đồi (Hill Climbing)
+		. Nếu không tìm thấy trạng thái tốt hơn, có thể chọn ngẫu nhiên trong các trạng thái chưa thăm
+		. Nếu không còn hướng nào cải thiện, kết thúc sớm (mắc kẹt tại local optima)
+- Solution từ Simple Hill Climbing
+	+ Đặc điểm
+		. Nhanh và đơn giản, chỉ cần heuristic mà không cần hàng đợi ưu tiên
+		. Có thể không tìm được lời giải nếu mắc kẹt tại đỉnh cục bộ (local optimum)
+		. Không đảm bảo tìm ra đường đi ngắn nhất hoặc thậm chí không đến được goal
+	+ Hiển thị trong chương trình
+		. Đường đi (nếu tìm được) sẽ được hiển thị từng bước, với delay giữa các bước (STEP_DELAY)
+		. Có thể hiển thị số bước thực hiện hoặc thời gian thực thi
+		. Các trạng thái chuyển tiếp có thể được highlight để minh họa quá trình "leo đồi"
+
+b. Thuật toán Steepest ascent hill climbing
 
 ```
