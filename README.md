@@ -311,5 +311,30 @@ b. Thuật toán Steepest ascent hill climbing
 		. Thông tin số bước đã duyệt, thời gian thực thi có thể được in ra để đánh giá hiệu suất
 
 b. Thuật toán Stochastic hill climbing
-*Hình ảnh gif mô tả thuật toán:
+*Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/3.%20Local%20Search/Stochastic%20hill.gif?raw=true)
+- Các thành phần chính
+	+ Hàm heuristic (Manhattan Distance)
+		. Dùng để đánh giá mức độ gần với trạng thái đích
+		. Chỉ sử dụng h(n), không tính đến chi phí thực như UCS hay A*
+	+ Hàm chính (stochastic_hill_climbing)
+		. Bắt đầu từ trạng thái start, lưu path và các trạng thái đã thăm visited
+		. Lặp tối đa max_steps bước
+		. Ở mỗi bước, tạo danh sách hàng xóm và phân loại thành: tốt hơn, ngang bằng, tệ hơn
+	+ Hàm mở rộng trạng thái (Neighbor Generation)
+		. Sinh ra tất cả các trạng thái có thể bằng cách di chuyển ô trống
+		. Chỉ xét các trạng thái chưa từng thăm
+		. Tính heuristic của từng trạng thái mới để phân nhóm
+	+ Chiến lược Leo đồi Ngẫu nhiên (Stochastic Ascent)
+		. Nếu có trạng thái tốt hơn, chọn ngẫu nhiên theo xác suất ưu tiên trạng thái cải thiện nhiều hơn
+		. Nếu không có, có thể đi ngang (tức là trạng thái có heuristic bằng hiện tại)
+		. Nếu bị kẹt quá nhiều bước (theo max_stuck), chấp nhận đi lùi (worsening) để thoát local optima
+		. Điều này giúp thuật toán có tính linh hoạt hơn so với dạng hill climbing thông thường
+- Solution từ Stochastic Hill Climbing
+	+ Đặc điểm
+		. Giảm nguy cơ mắc kẹt tại local optima bằng cách chọn bước đi ngẫu nhiên có xác suất
+		. Có thể vượt local optima nhờ cơ chế “đi lùi có kiểm soát”
+		. Mức độ khám phá cao hơn các thuật toán leo đồi đơn giản, đặc biệt với bài toán nhiều điểm kẹt như 8-puzzle
+	+ Hiển thị trong chương trình
+		. Có thể in ra từng trạng thái đã đi qua và thời điểm “chấp nhận đi lùi” để minh họa khả năng thoát kẹt
+		. Đường đi thường dài hơn so với các thuật toán tối ưu như A*, nhưng khả năng tìm được lời giải trong nhiều tình huống kẹt cao hơn
 ```
