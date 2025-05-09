@@ -15,10 +15,11 @@ Báo cáo đồ án cá nhân (8-puzzles)
 2. Nội dung  
 
 	2.1. Các thuật toán tìm kiếm không có thông tin ( Uninformed Search )
-   ```
+   
    2.1.1 Các thành phần chính của bài toán tìm kiếm và solution
    a. BFS
-   (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/1.%20Uninformed%20Search/BFS.gif?raw=true)
+  ![BFS](https://github.com/user-attachments/assets/19ae5414-150e-4749-b0e3-2950a6d791e3)
+   ```
    - Các thành phần chính:
 	   + Hàng đợi (Queue):
 		   . Chức năng: Lưu trữ các trạng thái cần xét, kèm theo đường đi từ trạng thái bắt đầu, theo nguyên tắc FIFO (First-In-First-Out)
@@ -45,6 +46,7 @@ Báo cáo đồ án cá nhân (8-puzzles)
 		   . Thông số điều khiển: Độ trễ được điều chỉnh qua biến STEP_DELAY
 	   + Đánh giá hiệu suất thuật toán:
 		   . Thời gian thực thi: Được tính từ lúc bắt đầu đến khi tìm ra lời giải với đồ phức tạp O(b^d) và hiển thị trên giao diện
+   ```
    
    b. DFS
    * Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/1.%20Uninformed%20Search/DFS.gif?raw=true)
