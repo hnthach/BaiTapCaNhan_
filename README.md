@@ -276,9 +276,14 @@ c. Greedy
 	        • Dễ rơi vào trạng thái local optima (tối ưu cục bộ)
 ```
 2.3 Các thuật toán tìm kiếm nội bộ
+
+2.3.1 Các thành phần chính của bài toán tìm kiếm và solution  
+
+a. Thuật toán simple hill climbing  
+
+![Simple Hill](https://github.com/user-attachments/assets/d6b122ec-eaa4-4c99-99a4-fb4d0c2c752c)
+
 ```
-2.3.1 Các thành phần chính của bài toán tìm kiếm và solution
-a. Thuật toán simple hill climbing
 - Các thành phần chính
 	+ Hàm heuristic (Manhattan Distance)
 		. Sử dụng khoảng cách Manhattan để đánh giá mức độ gần goal
@@ -303,9 +308,11 @@ a. Thuật toán simple hill climbing
 		. Đường đi (nếu tìm được) sẽ được hiển thị từng bước, với delay giữa các bước (STEP_DELAY)
 		. Có thể hiển thị số bước thực hiện hoặc thời gian thực thi
 		. Các trạng thái chuyển tiếp có thể được highlight để minh họa quá trình "leo đồi"
+```
+b. Thuật toán Steepest ascent hill climbing  
 
-b. Thuật toán Steepest ascent hill climbing
-*Hình ảnh gif mô tả thuật toán: https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/3.%20Local%20Search/Steepest%20Hill.gif?raw=true
+![Steepest Hill](https://github.com/user-attachments/assets/f26ff33b-66cd-42ed-985f-f391235e13e6)
+```
 - Các thành phần chính
 	+ Hàm heuristic (Manhattan Distance)
 		. Sử dụng khoảng cách Manhattan để đo độ gần tới goal
@@ -333,9 +340,11 @@ b. Thuật toán Steepest ascent hill climbing
 		. Hiển thị đường đi từng bước nếu tìm thấy solution
 		. Có thể minh họa trạng thái bị kẹt khi không còn hướng đi tốt hơn
 		. Thông tin số bước đã duyệt, thời gian thực thi có thể được in ra để đánh giá hiệu suất
+```
+c. Thuật toán Stochastic hill climbing  
 
-c. Thuật toán Stochastic hill climbing
-*Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/3.%20Local%20Search/Stochastic%20hill.gif?raw=true)
+![Stochastic hill](https://github.com/user-attachments/assets/ac5f227f-46f2-48bb-bc5d-45ea308a8f42)
+```
 - Các thành phần chính
 	+ Hàm heuristic (Manhattan Distance)
 		. Dùng để đánh giá mức độ gần với trạng thái đích
@@ -361,9 +370,11 @@ c. Thuật toán Stochastic hill climbing
 	+ Hiển thị trong chương trình
 		. Có thể in ra từng trạng thái đã đi qua và thời điểm “chấp nhận đi lùi” để minh họa khả năng thoát kẹt
 		. Đường đi thường dài hơn so với các thuật toán tối ưu như A*, nhưng khả năng tìm được lời giải trong nhiều tình huống kẹt cao hơn
+```
+d. Thuật toán Beam Search  
 
-d. Thuật toán Beam Search
-*Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/3.%20Local%20Search/Beam%20Search.gif?raw=true)
+![Beam Search](https://github.com/user-attachments/assets/966caf38-ab3a-4fee-8227-38a0e17f14a8)
+```
 - Các thành phần chính:
 	+ Hàm heuristic (Manhattan Distance)
 		. Dùng để đánh giá mức độ gần với trạng thái đích
