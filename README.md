@@ -19,6 +19,7 @@ Báo cáo đồ án cá nhân (8-puzzles)
    2.1.1 Các thành phần chính của bài toán tìm kiếm và solution
    
    a. BFS
+   
   ![BFS](https://github.com/user-attachments/assets/19ae5414-150e-4749-b0e3-2950a6d791e3)
    ```
    - Các thành phần chính:
@@ -50,7 +51,9 @@ Báo cáo đồ án cá nhân (8-puzzles)
    ```
    
    b. DFS
-   * Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/1.%20Uninformed%20Search/DFS.gif?raw=true)
+   
+  ![DFS](https://github.com/user-attachments/assets/4828f44a-9ded-4c56-ae1a-e1a7c393ac7d)
+```
    - Các thành phần chính:
 	   + Ngăn xếp (Stack):
 		   . Chức năng: Lưu trữ các trạng thái cần xét kèm theo đường đi từ trạng thái bắt đầu, theo nguyên tắc LIFO (Last-In-First-Out).
@@ -75,8 +78,8 @@ Báo cáo đồ án cá nhân (8-puzzles)
 		   . Cách hiển thị: Mỗi trạng thái trong đường đi được vẽ lên giao diện với hiệu ứng chuyển tiếp rõ ràng
 		   . Thông số điều khiển: Tốc độ chuyển trạng thái được điều chỉnh thông qua biến STEP_DELAY
 	   + Đánh giá hiệu suất thuật toán:
-		   . Thời gian thực thi: Phụ thuộc vào độ sâu tối đa max_depth và cấu trúc cây trạng thái; độ phức tạp trong trường hợp xấu là O(b^d), với b là branching 		    factor và d là độ sâu lời giải
-   
+		   . Thời gian thực thi: Phụ thuộc vào độ sâu tối đa max_depth và cấu trúc cây trạng thái; độ phức tạp trong trường hợp xấu là O(b^d), với b là branching factor và d là độ sâu lời giải
+```
    c. IDDFS
       * Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/1.%20Uninformed%20Search/IDDFS.gif?raw=true)
    - Các thành phần chính:
