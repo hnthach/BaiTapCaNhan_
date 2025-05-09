@@ -17,6 +17,7 @@ Báo cáo đồ án cá nhân (8-puzzles)
 	2.1. Các thuật toán tìm kiếm không có thông tin ( Uninformed Search )
    
    2.1.1 Các thành phần chính của bài toán tìm kiếm và solution
+   
    a. BFS
   ![BFS](https://github.com/user-attachments/assets/19ae5414-150e-4749-b0e3-2950a6d791e3)
    ```
