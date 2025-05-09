@@ -150,11 +150,15 @@ Báo cáo đồ án cá nhân (8-puzzles)
 	   - UCS tối ưu về chi phí thay vì độ dài đường đi. Khi chi phí mỗi bước giống nhau, UCS tương đương BFS. Tuy nhiên, UCS tiêu tốn bộ nhớ lớn do dùng hàng đợi ưu tiên để xử lý trạng thái theo tổng chi phí thấp nhất.
    
    ```
-2.2 Các thuật toán tìm kiếm có thông tin (Informed Search)
+2.2 Các thuật toán tìm kiếm có thông tin (Informed Search)  
+
+2.2.1 Các thành phần chính của bài toán tìm kiếm và solution  
+
+a. Thuật toán A*  
+
+![A_Star](https://github.com/user-attachments/assets/99e7a577-b3d4-4e72-9348-46a65ee96d7a)
+
 ```
-2.2.1 Các thành phần chính của bài toán tìm kiếm và solution
-a. Thuật toán A*
-* Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed%20Search/A_Star.gif?raw=true)
 - Các thành phần chính:
 	+ Hàm heuristic (Manhattan Distance)
 		· Tính tổng khoảng cách hàng và cột giữa vị trí hiện tại và vị trí đích của mỗi ô
@@ -178,9 +182,11 @@ a. Thuật toán A*
 		· Hiển thị từng bước trong lời giải với STEP_DELAY = 300ms
 		· Thời gian thực thi được in ra: "Time: x.xxxx seconds"
 		· Các ô di chuyển được highlight để trực quan theo dõi đường đi
+```
+b. Thuật toán IDA*  
 
-b. Thuật toán IDA*
-* Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed%20Search/IDA_Star.gif?raw=true)
+![IDA_Star](https://github.com/user-attachments/assets/0673cbd7-0f31-4c6d-be75-ee44b0ea067f)
+```
 - Các thành phần chính
 	+ Hàm heuristic (Manhattan Distance)
 		· Sử dụng khoảng cách Manhattan để đánh giá chi phí còn lại
@@ -210,9 +216,11 @@ b. Thuật toán IDA*
 		· Solution được mô phỏng từng bước với độ trễ STEP_DELAY = 300ms
 		· Thời gian thực thi được in ra màn hình
 		· Các ô thay đổi được highlight rõ ràng khi di chuyển
+```
+c. Greedy  
 
-c. Greedy
-* Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed%20Search/Greedy.gif?raw=true)
+![Greedy](https://github.com/user-attachments/assets/8439d686-9224-441d-8582-5a84db342d78)
+```
 - Các thành phần chính
 	+ Hàm heuristic (Manhattan Distance)
 		. Ưu tiên mở rộng trạng thái có giá trị heuristic nhỏ nhất (gần goal nhất theo khoảng cách Manhattan)
@@ -235,11 +243,13 @@ c. Greedy
 		. Hiển thị lời giải từng bước (nếu tìm được), sử dụng delay cố định (STEP_DELAY)
 		. Thông tin thời gian thực thi được hiển thị
 		. Các bước di chuyển được highlight nếu chương trình có hỗ trợ
+```
+2.2.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm có thông tin  
 
-2.2.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm có thông tin
-https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/2.%20Informed%20Search/SoSanhHieuSuat_Informed%20Search.gif?raw=true
+![SoSanhHieuSuat_Informed Search](https://github.com/user-attachments/assets/fcc6a19b-6d18-45fb-a0e9-80689435dae8)
 
 2.1.3 Nhận xét về hiệu suất các thuật toán
+```
 - A*
       + Ưu điểm
 	        • Tìm được lời giải tối ưu (ngắn nhất) nếu tồn tại
