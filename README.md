@@ -80,8 +80,10 @@ Báo cáo đồ án cá nhân (8-puzzles)
 	   + Đánh giá hiệu suất thuật toán:
 		   . Thời gian thực thi: Phụ thuộc vào độ sâu tối đa max_depth và cấu trúc cây trạng thái; độ phức tạp trong trường hợp xấu là O(b^d), với b là branching factor và d là độ sâu lời giải
 ```
-   c. IDDFS
-      * Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/1.%20Uninformed%20Search/IDDFS.gif?raw=true)
+   c. IDDFS  
+   
+   ![IDDFS](https://github.com/user-attachments/assets/261dc269-ba4b-482a-98be-3a2866c9f5d6)
+```
    - Các thành phần chính:
 	   + Hàm chính: iddfs(start, goal)
 		   . Là một vòng lặp vô hạn (while True) thực hiện tìm kiếm sâu dần theo từng mức độ sâu.
@@ -106,8 +108,11 @@ Báo cáo đồ án cá nhân (8-puzzles)
 	   + Chi phí tính toán lặp lại (Redundant Computation)
 		   . Một số trạng thái có thể được duyệt lại nhiều lần ở các mức độ sâu khác nhau (trade-off giữa bộ nhớ và thời gian).
 		   . Tuy nhiên, với các bài toán như 8-puzzle, việc này vẫn hợp lý do số lượng trạng thái hữu hạn và không quá lớn.
-   
-   d. UCS
+   ```
+   d. UCS  
+
+   ![UCS](https://github.com/user-attachments/assets/0f16ed88-fe7b-4781-9b2a-520a45efb57a)
+```
    - Các thành phần chính:
 	   + Hàng đợi ưu tiên (priority_queue)
 		   . Chức năng: Lưu trữ các trạng thái cần xét, ưu tiên theo tổng chi phí từ trạng thái bắt đầu.
@@ -131,7 +136,7 @@ Báo cáo đồ án cá nhân (8-puzzles)
 	   + Hiệu suất thuật toán
 		   . Thời gian thực thi phụ thuộc vào độ sâu lời giải và số nhánh trung bình (b), với độ phức tạp O(b^d) (như BFS).
 		   . Tuy nhiên, UCS mở rộng theo chi phí nên có thể hiệu quả hơn BFS nếu áp dụng vào bài toán có chi phí khác nhau giữa các bước.
-
+```
    2.1.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm không có thông tin
    https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/1.%20Uninformed%20Search/SoSanhHieuXuat_Uninformed%20Search.gif?raw=true
 
