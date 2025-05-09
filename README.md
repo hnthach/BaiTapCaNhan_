@@ -18,7 +18,8 @@ Báo cáo đồ án cá nhân (8-puzzles)
    ```
    2.1.1 Các thành phần chính của bài toán tìm kiếm và solution
    a. BFS
-   * Hình ảnh gif mô tả thuật toán: (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/1.%20Uninformed%20Search/BFS.gif?raw=true)
+![A_Star](https://github.com/user-attachments/assets/de00d6bc-af7b-4d19-b7f2-64d04ade4c31)
+   (https://github.com/hnthach/BaiTapCaNhan_/blob/main/%E1%BA%A2nh_GIF/1.%20Uninformed%20Search/BFS.gif?raw=true)
    - Các thành phần chính:
 	   + Hàng đợi (Queue):
 		   . Chức năng: Lưu trữ các trạng thái cần xét, kèm theo đường đi từ trạng thái bắt đầu, theo nguyên tắc FIFO (First-In-First-Out)
