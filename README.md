@@ -248,7 +248,7 @@ c. Greedy
 
 ![SoSanhHieuSuat_Informed Search](https://github.com/user-attachments/assets/fcc6a19b-6d18-45fb-a0e9-80689435dae8)
 
-2.1.3 Nhận xét về hiệu suất các thuật toán
+2.2.3 Nhận xét về hiệu suất các thuật toán
 ```
 - A*
       + Ưu điểm
@@ -399,4 +399,181 @@ d. Thuật toán Beam Search
 		. Có thể in ra số bước đi, các trạng thái trong chùm tại mỗi bước để minh họa cơ chế chọn lọc
 		. Thích hợp để chạy nhanh với kích thước chùm vừa phải, nhưng cần điều chỉnh beam_width hợp lý để đảm bảo không bỏ sót lời giải
 
+```
+e. Thuật toán Simulated Annealing
+
+![Simulated Annealing](https://github.com/user-attachments/assets/29fc79c0-89db-40eb-8903-f446df85add2)
+
+```
+- Các thành phần chính
+	+ Hàm heuristic (Manhattan Distance)
+		. Dùng để đánh giá độ gần của trạng thái hiện tại với trạng thái đích
+		. Chỉ dùng h(n) nên không xét đến chi phí thực tế như UCS hay A*
+	+ Hàm chính (simulated_annealing)
+		. Khởi tạo từ start, thiết lập initial_temp (nhiệt độ ban đầu), cooling_rate (tốc độ làm nguội)
+		. Duy trì path và cập nhật theo từng trạng thái đã chọn
+		. Lặp tối đa max_steps bước hoặc dừng sớm nếu nhiệt độ xuống quá thấp
+	+ Hàm mở rộng trạng thái (Neighbor Generation)
+		. Sinh ra tất cả các trạng thái hợp lệ bằng cách di chuyển ô trống
+		. Với mỗi trạng thái sinh ra, tính heuristic để quyết định khả năng chấp nhận
+	+ Chiến lược Mô phỏng luyện kim (Simulated Annealing)
+		. Luôn chấp nhận trạng thái tốt hơn
+		. Có thể chấp nhận trạng thái tệ hơn với xác suất giảm dần theo thời gian (phụ thuộc vào nhiệt độ temp)
+		. Xác suất chấp nhận bước đi xấu hơn được tính theo công thức: P = exp((current_h - new_h) / temp)
+		. Khi temp giảm dần, hệ thống sẽ trở nên bảo thủ hơn (ít chấp nhận trạng thái tệ)
+- Solution từ Simulated Annealing
+	+ Đặc điểm
+		. Có khả năng thoát khỏi local optima nhờ chấp nhận trạng thái kém hơn một cách có kiểm soát
+		. Cân bằng giữa khai phá (exploration) và khai thác (exploitation) qua quá trình làm nguội
+		. Phù hợp với bài toán có không gian trạng thái phức tạp và nhiều điểm mắc kẹt
+		. Không đảm bảo tối ưu nhưng thường tìm ra lời giải tốt nếu cấu hình tham số hợp lý (initial_temp, cooling_rate)
+	+ Hiển thị trong chương trình
+		. Có thể hiển thị biểu đồ nhiệt độ theo thời gian, hoặc số lần chấp nhận bước đi tệ hơn
+		. In ra trạng thái khi thuật toán "đi lùi" để minh họa tính linh hoạt
+		. Có thể so sánh hiệu suất với Hill Climbing để thấy rõ vai trò của cơ chế “chấp nhận sai lầm có kiểm soát”
+```
+f. Thuật toán Genetic Algorithm
+
+![Genetic Algorithm](https://github.com/user-attachments/assets/61ab014c-4c1a-4cb9-98a2-e94bbf120d0d)
+
+```
+- Các thành phần chính
+	+ Hàm heuristic (Manhattan Distance)
+		・Dùng để đánh giá độ gần của trạng thái cuối cùng trong đường đi của một cá thể so với trạng thái đích (goal)
+		・Hàm fitness trả về giá trị âm của khoảng cách để dễ dàng tối đa hóa (càng gần đích, giá trị càng lớn)
+	+ Hàm chính (genetic_algorithm)
+		・Khởi tạo quần thể gồm nhiều cá thể bằng cách thực hiện các bước đi ngẫu nhiên từ start
+		・Mỗi cá thể là một dãy các trạng thái (đường đi), không phải chỉ là 1 cấu hình
+		・Duy trì vòng lặp qua tối đa max_generations, mỗi thế hệ đều tiến hành đánh giá, chọn lọc, lai ghép và đột biến
+	+ Hàm sinh cá thể (Individual Generation)
+		・Tạo đường đi ngẫu nhiên từ trạng thái bắt đầu, với số bước di chuyển từ 5–30
+		・Mỗi bước sinh một trạng thái mới bằng cách di chuyển ô trống hợp lệ
+	+ Đánh giá độ thích nghi (Fitness Evaluation)
+		・Fitness được tính theo khoảng cách Manhattan của trạng thái cuối cùng của đường đi
+		・Dùng để xếp hạng và chọn lọc các cá thể tốt hơn qua từng thế hệ
+	+ Chiến lược di truyền (Genetic Strategy)
+		・Chọn lọc: giữ lại 50% cá thể có độ thích nghi cao nhất
+		・Lai ghép (crossover): kết hợp hai cha mẹ bằng cách cắt đường đi tại một điểm ngẫu nhiên
+		・Đột biến (mutation): với xác suất mutation_rate, thêm một bước đi ngẫu nhiên để giữ tính đa dạng và thoát local optima
+		・Lặp lại cho đến khi tạo đủ population_size cá thể mới
+
+- Solution từ Genetic Algorithm
++ Đặc điểm
+	・Là thuật toán tìm kiếm ngẫu nhiên dựa trên tiến hóa sinh học
+	・Có khả năng tìm kiếm song song nhiều hướng giải khác nhau nhờ vào quần thể
+	・Không đảm bảo tìm ra lời giải tối ưu, nhưng dễ mở rộng, dễ kết hợp với heuristic khác
+	・Phù hợp với các bài toán có không gian trạng thái lớn và độ phức tạp cao
++ Hiển thị trong chương trình
+	・Có thể in ra trạng thái cá thể tốt nhất mỗi thế hệ (kèm fitness)
+	・Minh họa sự khác biệt giữa thế hệ cha và con sau crossover/mutation
+	・Biểu đồ biểu diễn tiến trình cải thiện fitness qua các thế hệ
+```
+
+2.3.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm nội bộ  
+
+![SoSanhHieuSuat_Local Search](https://github.com/user-attachments/assets/78a410ad-e0d9-4a26-a5dd-9db641f517d0)
+
+2.3.3 Nhận xét về hiệu suất các thuật toán
+
+```
+- Simple Hill Climbing
+	+ Ưu điểm
+		• Dễ cài đặt, trực tiếp cải thiện trạng thái hiện tại
+		• Tốc độ nhanh, tiêu thụ bộ nhớ ít
+	+ Nhược điểm
+		• Dễ bị kẹt ở local optimum
+		• Không lùi lại hay thử lựa chọn thay thế
+		• Không đảm bảo tìm được lời giải
+- Steepest-Ascent Hill Climbing
+	+ Ưu điểm
+		• Tìm bước đi tốt nhất tại mỗi lượt, tăng cơ hội cải thiện
+		• Có thể hiệu quả hơn Simple Hill Climbing trong không gian trạng thái mịn
+	+ Nhược điểm
+		• Vẫn dễ kẹt tại local optimum hoặc plateau (vùng bằng phẳng)
+		• Mỗi bước cần đánh giá toàn bộ hàng xóm → chậm hơn
+- Stochastic Hill Climbing
+	+ Ưu điểm
+		• Chọn ngẫu nhiên hàng xóm tốt → tránh bị mắc kẹt sớm
+		• Nhanh và tiết kiệm bộ nhớ
+	+ Nhược điểm
+		• Không đảm bảo tìm lời giải
+		• Hiệu quả không ổn định, phụ thuộc may mắn
+		• Có thể dừng ở local optima nếu hàng xóm hạn chế
+- Beam Search
+	+ Ưu điểm
+		• Kiểm soát bộ nhớ bằng beam_width, tiết kiệm so với A*
+		• Tốc độ nhanh nếu beam nhỏ
+	+ Nhược điểm
+		• Có thể bỏ qua lời giải đúng nếu beam quá hẹp
+		• Không đảm bảo tối ưu
+		• Nhạy cảm với chất lượng heuristic
+- Simulated Annealing
+	+ Ưu điểm
+		• Có khả năng thoát local optima bằng cách chấp nhận bước đi xấu tạm thời
+		• Phù hợp cho không gian trạng thái phức tạp
+	+ Nhược điểm
+		• Không ổn định: kết quả thay đổi nếu chạy lại
+		• Cần tinh chỉnh nhiều tham số (nhiệt độ, tốc độ làm nguội)
+		• Có thể không tìm ra lời giải nếu "lạnh" quá nhanh
+
+- Genetic Algorithm
+	+ Ưu điểm
+		• Khả năng tìm kiếm đa dạng nhờ quần thể và đột biến
+		• Tốt trong việc tránh local optima
+		• Có thể tiếp cận lời giải nếu cấu hình đúng
+	+ Nhược điểm
+		• Cần thời gian hội tụ dài
+		• Hiệu quả phụ thuộc vào kích thước quần thể, tỉ lệ lai ghép, đột biến
+		• Không đảm bảo lời giải đúng
+```
+
+2.6 Các thuật toán tìm kiếm Reinforcement Learning
+
+a. Thuật toán Q – Learning
+
+![Q – Learning](https://github.com/user-attachments/assets/115e9ba9-2323-45e4-b175-5d7a90da8f12)
+
+```
+- Các thành phần chính
+	+ Mô hình Q-Learning
+		• Q-Learning là một thuật toán học tăng cường (reinforcement learning).
+		• Mục tiêu là học một hàm Q(s, a) cho biết giá trị kỳ vọng nếu thực hiện hành động a tại trạng thái s, theo công thức:
+		𝑄(𝑠,𝑎)=𝑄(𝑠,𝑎)+𝛼⋅(𝑟+𝛾⋅max⁡𝑎′𝑄(𝑠′,𝑎′)−𝑄(𝑠,𝑎))Q(s,a)=Q(s,a)+α⋅(r+γ⋅ a ′max Q(s ′ ,a ′ )−Q(s,a))
+		• Trong đó:
+			• α là learning rate
+			• γ là discount factor
+			• r là phần thưởng (reward)
+			• ε là xác suất thăm dò ngẫu nhiên (exploration rate)
+	+ Cấu trúc lớp QLearningSolver
+		• Khởi tạo với các tham số cơ bản (alpha, gamma, epsilon, episodes)
+		• Dữ liệu học được lưu trong Q-table, là một dictionary {state: {action: value}}
+		• Trạng thái state là cấu hình 8-puzzle, hành động action là một bước di chuyển hợp lệ của ô trống
+	+ Hàm get_actions(state)
+		• Trả về danh sách các hành động hợp lệ từ trạng thái hiện tại
+		• Mỗi hành động là một tuple (r1, c1, r2, c2), đại diện cho việc di chuyển ô trống
+	+  Hàm choose_action(state)
+		• Chiến lược ε-greedy:
+		• Với xác suất ε, chọn hành động ngẫu nhiên (exploration)
+		• Ngược lại, chọn hành động tốt nhất theo Q-table (exploitation)
+	+ Hàm update_q_table(state, action, reward, next_state)
+		• Cập nhật giá trị Q cho một cặp trạng thái – hành động theo công thức Q-learning
+	+ Hàm solve(start, goal)
+		• Chạy Q-learning trong episodes vòng lặp
+		• Mỗi vòng là một episode: bắt đầu từ start, chọn hành động, cập nhật Q-table cho đến khi đạt goal
+		• Phần thưởng:
+			• -1 cho mỗi bước
+			• +100 nếu đạt được trạng thái goal
+	+ Trả về kết quả
+		• Sau khi huấn luyện, Q-table có thể dùng để sinh đường đi tốt nhất từ start đến goal
+		• Sử dụng lại choose_action() để lần theo đường đi học được
+- Solution từ Q-Learning
+	+ Đặc điểm
+		• Là một phương pháp tự học thông qua tương tác với môi trường
+		• Khác với thuật toán tìm kiếm truyền thống: Q-Learning không cần biết trước mô hình (model-free)
+		• Có khả năng ghi nhớ và cải thiện theo thời gian, học tốt nếu số lần lặp đủ lớn
+		• Tuy nhiên, hiệu quả phụ thuộc lớn vào cách biểu diễn trạng thái, hàm thưởng, và số vòng học
+	+ Hiển thị trong chương trình
+		• In tổng phần thưởng của mỗi tập huấn luyện (episode)
+		• Sau huấn luyện, in ra đường đi từ trạng thái bắt đầu đến đích theo Q-table
+		• Có thể mở rộng thêm biểu đồ reward theo episode để theo dõi quá trình học
 ```
