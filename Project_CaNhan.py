@@ -1043,128 +1043,72 @@ def min_conflicts_csp(start, goal, max_steps=1000):
     return path
 
 # 6. Reinforcement Learning Algorithm
-def q_learning(start, goal, episodes=1000, max_steps=100, learning_rate=0.1, discount_factor=0.9, exploration_rate=1.0, exploration_decay=0.995):
-    """Q-Learning algorithm for 8-puzzle"""
-    # Khởi tạo Q-table (dictionary để lưu Q-values)
-    q_table = {}
-    
-    # Hàm để lấy Q-value từ Q-table
-    def get_q_value(state, action):
-        state_key = tuple(tuple(row) for row in state)
-        if state_key not in q_table:
-            q_table[state_key] = {}
-        if action not in q_table[state_key]:
-            q_table[state_key][action] = 0  # Khởi tạo Q-value mặc định
-        return q_table[state_key][action]
-    
-    # Hàm để chọn action (epsilon-greedy)
-    def choose_action(state, exploration_rate):
-        blank_i, blank_j = find_blank(state)
-        possible_actions = []
+class QLearningSolver:
+    def __init__(self, alpha=0.8, gamma=0.9, epsilon=0.1, episodes=2000):
+        self.alpha = alpha  # Learning rate
+        self.gamma = gamma  # Discount factor
+        self.epsilon = epsilon  # Exploration rate
+        self.episodes = episodes  # Number of episodes to run Q-learning
+        self.q_table = {}  # Dictionary to store Q-values
         
-        for di, dj in directions:
-            ni, nj = blank_i + di, blank_j + dj
-            if 0 <= ni < GRID_SIZE and 0 <= nj < GRID_SIZE:
-                possible_actions.append((di, dj))
-        
-        if not possible_actions:
-            return None
-            
-        # Khám phá (chọn ngẫu nhiên)
-        if random.random() < exploration_rate:
-            return random.choice(possible_actions)
-        # Khai thác (chọn action có Q-value cao nhất)
+    def get_actions(self, state):
+        """Return all possible actions from current state (tile moves)"""
+        actions = []
+        blank_row, blank_col = find_blank(state)
+        for direction in directions:
+            new_row, new_col = blank_row + direction[0], blank_col + direction[1]
+            if 0 <= new_row < GRID_SIZE and 0 <= new_col < GRID_SIZE:
+                actions.append((blank_row, blank_col, new_row, new_col))
+        return actions
+
+    def update_q_table(self, state, action, reward, next_state):
+        """Update Q-table using Q-learning formula"""
+        max_q_next = max(self.q_table.get(next_state, {}).values(), default=0)
+        current_q = self.q_table.get(state, {}).get(action, 0)
+        self.q_table.setdefault(state, {})[action] = current_q + self.alpha * (
+            reward + self.gamma * max_q_next - current_q)
+
+    def choose_action(self, state):
+        """Choose action using epsilon-greedy strategy"""
+        if random.random() < self.epsilon:
+            # Explore
+            actions = self.get_actions(state)
+            return random.choice(actions)
         else:
-            q_values = [get_q_value(state, action) for action in possible_actions]
-            max_q = max(q_values)
-            best_actions = [action for action, q in zip(possible_actions, q_values) if q == max_q]
-            return random.choice(best_actions)
+            # Exploit
+            if state not in self.q_table:
+                return random.choice(self.get_actions(state))
+            max_q_action = max(self.q_table[state], key=self.q_table[state].get)
+            return max_q_action
     
-    # Huấn luyện Q-learning
-    for episode in range(episodes):
-        current_state = [list(row) for row in start]
-        path = [tuple(tuple(row) for row in current_state)]
+    def solve(self, start, goal):
+        """Train Q-learning and return the solution path"""
+        for episode in range(self.episodes):
+            state = start
+            total_reward = 0
+            while state != goal:
+                action = self.choose_action(state)
+                next_state = swap_tiles(state, *action)
+                reward = -1 if next_state != goal else 100  # Negative reward for non-goal states
+                self.update_q_table(state, action, reward, next_state)
+                state = next_state
+                total_reward += reward
+            print(f"Episode {episode + 1}: Total Reward: {total_reward}")
         
-        for step in range(max_steps):
-            if tuple(tuple(row) for row in current_state) == goal:
-                break
-                
-            blank_i, blank_j = find_blank(current_state)
-            action = choose_action(current_state, exploration_rate)
-            
-            if action is None:
-                break
-                
-            di, dj = action
-            ni, nj = blank_i + di, blank_j + dj
-            
-            # Thực hiện action
-            new_state = [row[:] for row in current_state]
-            new_state[blank_i][blank_j], new_state[ni][nj] = new_state[ni][nj], new_state[blank_i][blank_j]
-            
-            # Tính reward
-            if tuple(tuple(row) for row in new_state) == goal:
-                reward = 100  # Phần thưởng lớn khi đạt mục tiêu
-            else:
-                # Phần thưởng dựa trên cải thiện heuristic
-                old_h = manhattan_distance(current_state)
-                new_h = manhattan_distance(new_state)
-                reward = (old_h - new_h) * 0.1  # Scale down để tránh Q-values quá lớn
-            
-            # Cập nhật Q-value
-            current_q = get_q_value(current_state, action)
-            
-            # Tìm Q-value tối đa cho state mới
-            next_state_actions = []
-            blank_i_new, blank_j_new = find_blank(new_state)
-            for di_new, dj_new in directions:
-                ni_new, nj_new = blank_i_new + di_new, blank_j_new + dj_new
-                if 0 <= ni_new < GRID_SIZE and 0 <= nj_new < GRID_SIZE:
-                    next_state_actions.append((di_new, dj_new))
-            
-            if next_state_actions:
-                max_next_q = max([get_q_value(new_state, a) for a in next_state_actions])
-            else:
-                max_next_q = 0
-                
-            # Công thức Q-learning
-            new_q = current_q + learning_rate * (reward + discount_factor * max_next_q - current_q)
-            
-            # Cập nhật Q-table
-            state_key = tuple(tuple(row) for row in current_state)
-            q_table[state_key][action] = new_q
-            
-            # Chuyển sang state mới
-            current_state = new_state
-            path.append(tuple(tuple(row) for row in current_state))
-        
-        # Giảm exploration rate
-        exploration_rate = max(0.01, exploration_rate * exploration_decay)
-    
-    # Sau khi huấn luyện, tìm đường đi từ start đến goal
-    current_state = [list(row) for row in start]
-    path = [tuple(tuple(row) for row in current_state)]
-    
-    for _ in range(max_steps * 2):  # Cho phép nhiều bước hơn để đảm bảo tìm thấy goal
-        if tuple(tuple(row) for row in current_state) == goal:
-            break
-            
-        blank_i, blank_j = find_blank(current_state)
-        action = choose_action(current_state, 0)  # Không khám phá, chỉ khai thác
-        
-        if action is None:
-            break
-            
-        di, dj = action
-        ni, nj = blank_i + di, blank_j + dj
-        
-        new_state = [row[:] for row in current_state]
-        new_state[blank_i][blank_j], new_state[ni][nj] = new_state[ni][nj], new_state[blank_i][blank_j]
-        
-        current_state = new_state
-        path.append(tuple(tuple(row) for row in current_state))
-    
-    return path
+        # Return the optimal path from start state
+        state = start
+        path = [state]
+        while state != goal:
+            action = self.choose_action(state)
+            next_state = swap_tiles(state, *action)
+            path.append(next_state)
+            state = next_state
+        return path
+
+def q_learning(start, goal):
+    """Wrapper function for Q-learning to match your existing interface"""
+    solver = QLearningSolver()
+    return solver.solve(start, goal)
 
 # ========== VÒNG LẶP CHÍNH CỦA GAME ==========
 def main():
