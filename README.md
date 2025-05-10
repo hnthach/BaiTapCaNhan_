@@ -526,6 +526,268 @@ f. Thuật toán Genetic Algorithm
 		• Hiệu quả phụ thuộc vào kích thước quần thể, tỉ lệ lai ghép, đột biến
 		• Không đảm bảo lời giải đúng
 ```
+2.4 Các thuật toán tìm kiếm trong môi trường phức tạp  
+
+2.4.1 Các thành phần chính của bài toán tìm kiếm và solution  
+
+a. Thuật toán Nondeterministic Search
+```
+- Các thành phần chính
+       + Hàm heuristic kỳ vọng (expected_heuristic)
+	         . Mục đích: Điều chỉnh heuristic thông thường để tính đến yếu tố không xác định
+	         . Cách tính: Nhân khoảng cách Manhattan với hệ số 1/xác_suất_thành_công
+	         . Ý nghĩa: Khi xác suất thành công thấp, heuristic giá trị cao hơn để phản ánh độ khó
+        + Cấu trúc dữ liệu và khởi tạo
+	          . Open set: Hàng đợi ưu tiên lưu (f_score, cost, state, path)
+	          . Visited set: Tập hợp các trạng thái đã xét để tránh lặp
+        + Vòng lặp chính
+	          . Lấy trạng thái có f_score nhỏ nhất từ open set
+	          . Kiểm tra điều kiện dừng khi gặp goal state
+	          . Bỏ qua các trạng thái đã xét
+        + Xử lý hành động không xác định
+	          . Tìm các trạng thái kề có thể có
+	          . Trong phiên bản đơn giản này, chỉ xét trạng thái mong muốn (không xét các trạng thái lỗi)
+  - Phân tích solution
+        + Ưu điểm
+	          . Kế thừa ưu điểm của A*: Đảm bảo tìm được lời giải tối ưu nếu tồn tại
+	          . Xử lý không xác định: Heuristic điều chỉnh phản ánh độ không chắc chắn
+	          . Hiệu quả: Vẫn duy trì được tính hiệu quả của A* trong môi trường không xác định
+        + Nhược điểm
+	          . Phiên bản đơn giản hóa: Chỉ xét trạng thái mong muốn, không mô hình hóa đầy đủ các kết quả có thể có
+	          . Heuristic đơn giản: Chỉ nhân hệ số cố định, chưa phản ánh chính xác xác suất các trạng thái khác nhau
+```
+b. Thuật toán Partial Observation
+```
+  - Các thành phần chính
+        + Khởi tạo quan sát một phần
+	          . Mục đích: Tạo trạng thái quan sát ban đầu với một số ô bị ẩn
+	          . Cách hoạt động: Chọn ngẫu nhiên num_hidden ô để ẩn, chỉ giữ lại giá trị các ô hiển thị
+        + Belief States (Trạng thái niềm tin)
+	          . Định nghĩa: Tập hợp tất cả các trạng thái có thể phù hợp với quan sát hiện tại
+	          . Trong triển khai đơn giản: Chỉ sử dụng trạng thái thực (để minh họa)
+	          . Triển khai đầy đủ: Cần sinh tất cả trạng thái có thể khớp với các ô đã quan sát
+        + Vòng lặp tìm kiếm chính
+	          . Vòng lặp tìm kiếm chính
+	          . Mỗi bước: Chọn hành động, thực hiện di chuyển, cập nhật thông tin
+        + Cập nhật quan sát
+	          . Quy tắc: Ô trống (0) luôn được tiết lộ khi nó di chuyển vào vị trí bị ẩn
+	          . Mục đích: Giảm dần số ô bị ẩn khi puzzle được giải
+        + Cập nhật Belief States
+	          . Chức năng: Lọc các trạng thái trong belief states để chỉ giữ lại những cái phù hợp với quan sát mới
+	          . Triển khai đầy đủ: Cần kiểm tra tính nhất quán của mỗi trạng thái với observation
+- Phân tích solution
+        + Ưu điểm
+	          . Mô phỏng quan sát không đầy đủ: Giải quyết bài toán thực tế khi không thấy toàn bộ trạng thái
+	          . Tiếp cận Belief State: Phù hợp với lý thuyết POMDP (Partially Observable MDP)
+	          . Cơ chế tiết lộ thông tin: Tự động phát hiện ô trống khi nó di chuyển vào vị trí ẩn
+        + Nhược điểm
+	          . Triển khai đơn giản hóa: Chưa thực sự quản lý belief states đầy đủ
+	          . Chiến lược chọn hành động ngẫu nhiên: Không tối ưu, có thể dẫn đến hiệu suất thấp
+	          . Thiếu cơ chế xử lý khi belief states rỗng: Không xử lý trường hợp không có trạng thái nào phù hợp  
+Giải pháp Partial Observation Search cung cấp cách tiếp cận hợp lý cho bài toán 8-puzzle với thông tin không đầy đủ. Phiên bản hiện tại là một khung cơ bản tốt
+```
+c. Thuật toán tìm kiếm không quan sát
+```
+- Các thành phần chính
+	+ Mô hình tìm kiếm không quan sát
+		. Thuật toán mô phỏng một tác nhân không có khả năng quan sát trạng thái hiện tại sau khi thực hiện hành động, do đó phải ghi nhớ tất cả các trạng thái đã đi qua để tránh đi vòng lặp lại.
+		. Đây là một dạng tìm kiếm ngẫu nhiên có ghi nhớ, không có chiến lược tối ưu hay heuristic cụ thể.
+		. Thuật toán hoạt động theo một logic rất đơn giản: di chuyển ngẫu nhiên nhưng tránh các trạng thái đã thăm. Nếu bị bế tắc (không còn nước đi mới), thuật toán quay lui (backtrack).
+	+ Cấu trúc hàm no_observation_search(start, goal)
+	.  Đầu vào:
+		.  start: trạng thái bắt đầu
+		. goal: trạng thái mục tiêu
+		. max_steps: số bước tối đa (tránh lặp vô hạn)
+	. Khởi tạo:
+		. current_state: trạng thái hiện tại
+		. path: danh sách các trạng thái đã đi qua
+		. visited: tập hợp các trạng thái đã đến, để tránh lặp lại
+	+ Vòng lặp tìm kiếm
+	.  Ở mỗi bước:
+		. Kiểm tra nếu current_state == goal thì trả về path
+		. Tìm tất cả các hành động (dịch chuyển ô trống) có thể từ trạng thái hiện tại
+		. Lọc ra các hành động chưa từng tạo ra trạng thái đã thăm
+		. Nếu không còn hành động hợp lệ nào:
+		. Quay lui một bước (pop khỏi path), cập nhật lại trạng thái hiện tại
+	. Nếu còn:
+		. Chọn một hành động ngẫu nhiên, thực hiện, cập nhật current_state, thêm vào path và visited
+	+ Kết thúc
+	. Thuật toán dừng nếu:
+		. Tìm được trạng thái đích
+		. Vượt quá max_steps
+		. Không thể tiếp tục đi thêm và không còn đường để quay lui
+- Solution từ tìm kiếm không quan sát
+	+ Đặc điểm
+		. Mô phỏng tốt một môi trường không có cảm biến hay quan sát, như robot hoạt động "mù" trong mê cung
+		. Dễ cài đặt, không cần heuristic hay hàm đánh giá
+		. Chiến lược đơn giản: chọn ngẫu nhiên, tránh trùng, backtrack nếu bị kẹt
+		. Hiệu quả thấp, dễ rơi vào vòng lặp, mất nhiều bước và không đảm bảo tìm ra lời giải nếu max_steps không đủ lớn
+		. Tuy nhiên, có thể sử dụng như baseline để so sánh với các thuật toán có chiến lược tốt hơn (BFS, A*, Hill Climbing...)
+	+ Hiển thị trong chương trình
+		. Trả về đường đi đã khám phá
+		. Có thể hiển thị số bước đã đi, số trạng thái đã thăm
+		. Có thể đánh giá: mất bao nhiêu bước, tỷ lệ thành công, tốc độ tìm ra lời giải
+
+```
+2.5 Các thuật toán tìm kiếm Constraint Satisfaction Problems (CSPs)  
+
+a. Thuật toán Backtracking
+
+```
+  - Các thành phần chính
+    + Chuyển đổi trạng thái
+      . Mục đích: Chuyển từ biểu diễn ma trận 3x3 sang danh sách phẳng 9 phần tử
+      . Lợi ích: Dễ dàng thao tác với vị trí ô trống và hoán đổi giá trị
+    + Hàm đệ quy backtrack
+      . current_state: Trạng thái hiện tại (dạng list phẳng)
+      . path: Lịch sử các trạng thái đã đi qua
+      . visited: Tập hợp các trạng thái đã thăm
+      . depth: Độ sâu đệ quy (phòng tràn stack)
+    + Điều kiện dừng
+      . Kiểm tra đích: So sánh với trạng thái mục tiêu
+      . Giới hạn đệ quy: Tránh đệ quy quá sâu (có thể điều chỉnh)
+    + Thử các hướng di chuyển
+      . Tìm ô trống: Xác định vị trí hiện tại của số 0
+      . Tạo trạng thái mới: Hoán đổi ô trống với ô lân cận hợp lệ
+    + Quản lý visited states
+      . Tránh lặp: Sử dụng set visited để ghi nhớ các trạng thái đã xét
+      . Quay lui (backtrack): Gỡ bỏ trạng thái khỏi tập visited nếu không dẫn đến lời giải
+  - Phân tích solution
+    +  Ưu điểm 
+      . Đơn giản và trực quan: Dễ hiểu và triển khai
+      . Đảm bảo tìm lời giải: Nếu tồn tại và trong giới hạn độ sâu
+      . Quản lý bộ nhớ tốt: Sử dụng set để tránh xét lại các trạng thái
+    + Nhược điểm
+      . Hiệu suất thấp: Độ phức tạp thời gian cao (O(b^d) với b là nhân tố nhánh, d là độ sâu)
+      . Giới hạn độ sâu: Có thể bỏ sót lời giải nếu nằm ngoài giới hạn depth
+      . Không tối ưu: Không đảm bảo tìm được đường đi ngắn nhất
+```
+b. Thuật toán Backtracking With Forward Checking
+
+```
+  _ Các thành phần chính
+
+    + Chuyển đổi trạng thái
+      . Mục đích: Chuyển trạng thái từ dạng ma trận (list[list]) sang tuple[tuple] để có thể lưu vào set (vì set chỉ chấp nhận kiểu dữ liệu hashable)
+      . Lợi ích: Giúp kiểm tra trạng thái đã thăm (visited) hiệu quả
+    + Hàm Heuristic (Manhattan Distance)
+      . Mục đích: Ước lượng khoảng cách từ trạng thái hiện tại đến trạng thái đích
+      . Cách tính: Tính tổng khoảng cách Manhattan của từng ô (trừ ô trống)
+      . Tác dụng: Giúp sắp xếp các bước đi tiềm năng theo thứ tự ưu tiên, tăng tốc độ tìm kiếm
+    + Hàm Backtrack đệ quy
+    ` . Tham số: current_state (trạng thái hiện tại), depth (độ sâu đệ quy)
+    + Điều kiện dừng
+      . Đạt đến max_depth (tránh stack overflow)
+      . Tìm thấy goal_state
+      . Trạng thái đã được thăm (visited)
+    + Forward Checking (Kiểm tra tiến)
+      . Mục đích: Kiểm tra các bước đi hợp lệ và loại bỏ những trạng thái đã thăm
+    + Quay lui (Backtracking)
+      . Thử từng bước đi (path.append)
+      . Nếu không tìm thấy lời giải (backtrack trả False), quay lui (path.pop)
+      . Xóa trạng thái khỏi visited để thử các nhánh khác
+  _ Phân tích solution
+    + Ưu điểm
+      . Forward Checking giúp loại bỏ sớm các trạng thái không khả thi
+      . Heuristic (Manhattan Distance) hướng dẫn tìm kiếm nhanh hơn
+      . max_depth giới hạn độ sâu đệ quy
+      . visited tránh xét lại các trạng thái đã thăm
+      . Tìm lời giải tối ưu (nếu heuristic đủ tốt)
+    + Nhược điểm
+      . Vẫn có độ phức tạp cao (O(b^d) trong trường hợp xấu nhất)
+      . Nếu manhattan_distance không đủ tốt, thuật toán có thể chậm
+      . Không đảm bảo tìm được lời giải ngắn nhất (vì không phải BFS)
+      
+  Thuật toán này cân bằng giữa tính đơn giản và hiệu suất, phù hợp cho các bài toán vừa và nhỏ.
+
+* Thuật toán Min-Conflicts
+
+  _ Các thành phần chính
+    + Khởi tạo trạng thái và bản đồ vị trí mục tiêu
+      . current: Lưu trạng thái hiện tại (dạng list để có thể thay đổi)
+      . goal_positions: Bản đồ lưu vị trí đúng của từng số trong trạng thái đích (giúp tính toán xung đột nhanh)
+    + Vòng lặp chính (tối đa max_steps)
+      . Mục đích: Lặp tối đa max_steps lần để tìm lời giải
+      . Kiểm tra điều kiện dừng: Nếu trạng thái hiện tại khớp với goal, trả về kết quả
+    + Phát hiện xung đột (conflict detection)
+      . Mục đích: Tìm tất cả các ô có giá trị không nằm đúng vị trí mục tiêu
+      . Cách tính xung đột: Khoảng cách Manhattan từ vị trí hiện tại đến vị trí đúng
+      . Kết quả: Danh sách conflicts chứa các ô cần điều chỉnh
+    + Chọn ô có xung đột lớn nhất
+      . Logic: Ưu tiên sửa những ô có sai lệch lớn nhất so với vị trí đúng
+      . Nếu không có xung đột: Dừng vòng lặp (đã giải xong)
+    + Tìm bước di chuyển tối ưu (chỉ di chuyển ô trống)
+      . Mục đích: Tìm hướng di chuyển ô trống làm giảm nhiều xung đột nhất
+      . Với mỗi ô lân cận ô trống, thử hoán đổi
+      . Tính toán số xung đột trước/sau khi di chuyển
+      . Chọn bước di chuyển giảm xung đột nhiều nhất
+    + Áp dụng bước di chuyển tốt nhất
+      . Thực hiện di chuyển: Hoán đổi ô trống với ô lân cận được chọn
+      . Trong 8-Puzzle, chỉ ô trống có thể di chuyển → thuật toán phải điều chỉnh để phù hợp
+  _ Phân tích Solution
+    + Ưu điểm
+      . Tập trung vào xung đột lớn nhất: Giúp giảm nhanh sai lệch so với mục tiêu
+      . Không cần backtracking: Tiết kiệm bộ nhớ so với các thuật toán quay lui
+      . Phù hợp với bài toán ràng buộc: Đặc biệt hiệu quả với CSP (Constraint Satisfaction Problems)
+    + Nhược điểm
+      . Không đảm bảo tìm được lời giải: Có thể mắc kẹt ở local optima
+      . Hiệu suất phụ thuộc vào heuristic: Nếu chọn sai ô để điều chỉnh, thuật toán có thể chậm
+      . Không tối ưu cho 8-Puzzle: Do chỉ di chuyển được ô trống, khả năng giảm xung đột bị hạn chế
+    + Giải thích lý do không giải được bài toán 8 puzzles
+      . Không gian trạng thái bị ràng buộc chặt
+      . Chỉ được phép di chuyển ô trống, không phải gán giá trị tùy ý
+      . Việc chuyển từ trạng thái này sang trạng thái khác bị giới hạn nghiêm ngặt bởi hành động hợp lệ
+      . Hàm đánh giá quá "mù mờ" và dễ kẹt
+      . Tổng khoảng cách Manhattan làm hàm xung đột — điều này giống với heuristic của A*, nhưng Min-Conflicts không đảm bảo thoát khỏi local minimum nếu không có random walk hay cơ chế nhảy thoát (như simulated annealing)
+```
+c. Thuật toán Min-Conflicts CSP
+```
+- Các thành phần chính
+	+ Mô hình Min-Conflicts cho bài toán 8-puzzle
+		. Min-Conflicts là một thuật toán sửa sai cục bộ (local search) thường dùng trong các bài toán thỏa ràng ràng buộc (CSP), ví dụ như N-Queens.
+		. Trong 8-puzzle, nó được chuyển đổi để đánh giá các "xung đột" giữa vị trí hiện tại của các ô và vị trí mục tiêu của chúng trong trạng thái goal.
+		. Ý tưởng chính là: chọn ô có mức xung đột cao nhất (sai vị trí nhiều nhất) và cố gắng di chuyển nó đến vị trí nào giúp giảm sai lệch (tức là giảm khoảng cách Manhattan đến vị trí đúng).
+	+ Cấu trúc hàm min_conflicts_csp(start, goal)
+		. Đầu vào:
+			. start: trạng thái bắt đầu
+			. goal: trạng thái mục tiêu
+			. max_steps: số bước tối đa cho phép
+		. Khởi tạo:
+			. current_state: dạng 2D list từ start
+			. path: lưu vết các trạng thái đã đi qua
+		. Mỗi vòng lặp:
+			. Nếu trạng thái hiện tại khớp với goal, trả về path
+	+ Xử lý xung đột
+		. Tính xung đột cho từng ô khác vị trí mục tiêu:
+		. Dựa vào khoảng cách Manhattan giữa vị trí hiện tại và vị trí mục tiêu
+		. Chọn ô có xung đột cao nhất (lớn nhất khoảng cách)
+		. Duyệt các hướng có thể dịch chuyển ô đó đến ô trống
+		. Đánh giá mức cải thiện (giảm khoảng cách)
+		. Thực hiện nước đi có cải thiện tốt nhất (nếu có)
+	+ Kết thúc
+		. Thuật toán dừng khi:
+		. Trạng thái hiện tại là goal
+		. Hết số bước giới hạn
+		. Không còn nước đi cải thiện (tức là local minimum)
+
+- Solution từ thuật toán Min-Conflicts CSP
+	+ Đặc điểm
+		. Áp dụng chiến lược giảm xung đột cục bộ, không dựa vào chiến lược toàn cục như A* hay BFS
+		. Hiệu quả nếu xung đột có thể dần được loại bỏ
+		. Tuy nhiên, dễ rơi vào local minima nếu không có bước nhảy đột phá (giống như hill climbing)
+		. Không đảm bảo tìm được lời giải nếu gặp thế cờ “nghẽn”
+		. Có thể tăng khả năng thành công bằng cách thêm kỹ thuật restart hoặc stochastic move
+	+ Ưu điểm
+		. Đơn giản, không yêu cầu cấu trúc dữ liệu phức tạp
+		. Nhanh, phù hợp với các bài toán nhiều ràng buộc nhỏ
+	+ Hạn chế
+		. Phụ thuộc mạnh vào cấu hình khởi đầu
+		. Dễ rơi vào trạng thái “không cải thiện được thêm”
+	+ Hiển thị trong chương trình
+		. Trả về path: danh sách trạng thái đã thay đổi
+		. Có thể in số bước thực hiện, số lần xung đột giảm thành công
+		. So sánh hiệu suất với các thuật toán local search khác (Hill Climbing, Simulated Annealing)
+```
 
 2.6 Các thuật toán tìm kiếm Reinforcement Learning
 
