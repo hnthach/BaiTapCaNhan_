@@ -281,8 +281,9 @@ c. Greedy
 
 a. Thuật toán simple hill climbing  
 
-![Simple Hill](https://github.com/user-attachments/assets/d6b122ec-eaa4-4c99-99a4-fb4d0c2c752c)
+![Simple_Hill](https://github.com/user-attachments/assets/26664efb-846a-45ee-84ac-67a06333a47b)
 
+=> Trong quá trình sắp xếp, thuật toán đã rơi vào điểm cực trị cục bộ (local optimum) tại bước di chuyển số 2, khiến nó không thể tiếp tục tìm ra lời giải.
 ```
 - Các thành phần chính
 	+ Hàm heuristic (Manhattan Distance)
@@ -340,6 +341,7 @@ b. Thuật toán Steepest ascent hill climbing
 		. Hiển thị đường đi từng bước nếu tìm thấy solution
 		. Có thể minh họa trạng thái bị kẹt khi không còn hướng đi tốt hơn
 		. Thông tin số bước đã duyệt, thời gian thực thi có thể được in ra để đánh giá hiệu suất
+=> Trong quá trình sắp xếp, thuật toán có thể rơi vào điểm cực trị cục bộ (local optimum) , khiến nó không thể tiếp tục tìm ra lời giải. 
 ```
 c. Thuật toán Stochastic hill climbing  
 
@@ -633,160 +635,127 @@ c. Thuật toán tìm kiếm không quan sát
 
 a. Thuật toán Backtracking
 
+![Backtracking](https://github.com/user-attachments/assets/48fd7226-40e5-434c-91b7-aa6c2022776c)
+
 ```
-  - Các thành phần chính
-    + Chuyển đổi trạng thái
-      . Mục đích: Chuyển từ biểu diễn ma trận 3x3 sang danh sách phẳng 9 phần tử
-      . Lợi ích: Dễ dàng thao tác với vị trí ô trống và hoán đổi giá trị
-    + Hàm đệ quy backtrack
-      . current_state: Trạng thái hiện tại (dạng list phẳng)
-      . path: Lịch sử các trạng thái đã đi qua
-      . visited: Tập hợp các trạng thái đã thăm
-      . depth: Độ sâu đệ quy (phòng tràn stack)
-    + Điều kiện dừng
-      . Kiểm tra đích: So sánh với trạng thái mục tiêu
-      . Giới hạn đệ quy: Tránh đệ quy quá sâu (có thể điều chỉnh)
-    + Thử các hướng di chuyển
-      . Tìm ô trống: Xác định vị trí hiện tại của số 0
-      . Tạo trạng thái mới: Hoán đổi ô trống với ô lân cận hợp lệ
-    + Quản lý visited states
-      . Tránh lặp: Sử dụng set visited để ghi nhớ các trạng thái đã xét
-      . Quay lui (backtrack): Gỡ bỏ trạng thái khỏi tập visited nếu không dẫn đến lời giải
-  - Phân tích solution
-    +  Ưu điểm 
-      . Đơn giản và trực quan: Dễ hiểu và triển khai
-      . Đảm bảo tìm lời giải: Nếu tồn tại và trong giới hạn độ sâu
-      . Quản lý bộ nhớ tốt: Sử dụng set để tránh xét lại các trạng thái
-    + Nhược điểm
-      . Hiệu suất thấp: Độ phức tạp thời gian cao (O(b^d) với b là nhân tố nhánh, d là độ sâu)
-      . Giới hạn độ sâu: Có thể bỏ sót lời giải nếu nằm ngoài giới hạn depth
-      . Không tối ưu: Không đảm bảo tìm được đường đi ngắn nhất
+- Các thành phần chính
+	+ Không gian tìm kiếm và trạng thái
+		. Trạng thái ban đầu current_state là ma trận 3x3 chứa toàn số 0 (chưa gán).
+		. Tập biến variables gồm tất cả các vị trí ô trên lưới (từ (0,0) đến (2,2)).
+		. Mỗi biến có domain là tập {1, 2, ..., 8} – các giá trị có thể gán.
+	+ Hàm kiểm tra ràng buộc: is_valid()
+		. Đảm bảo giá trị vừa gán không trùng:
+		. Trong cùng hàng.
+		. Trong cùng cột.
+		. Với các giá trị đã dùng ở các hàng trước đó (ràng buộc toàn cục).
+		. Đây là bước đảm bảo tính hợp lệ cục bộ và tương thích tổng thể của lời giải tại thời điểm hiện tại.
+	+ Hàm hiển thị trạng thái: draw_state_with_current_var()
+		. Mỗi lần gán hoặc backtrack, trạng thái được hiển thị trực quan bằng Pygame.
+		. Ô đang xét được tô màu khác (vàng nhạt) và hiển thị dấu "?" nếu chưa gán.
+		. Góp phần minh họa rõ quá trình tìm lời giải từng bước một, phục vụ cho mục đích trực quan hóa thuật toán.
+	+ Thuật toán chính: backtrack()
+		. Là một hàm đệ quy thực hiện quá trình:
+		. Gán thử từng giá trị hợp lệ cho ô hiện tại.
+		. Hiển thị trạng thái sau mỗi lần gán.
+		. Kiểm tra ràng buộc, nếu hợp lệ thì tiếp tục với biến kế tiếp.
+		. Nếu không hợp lệ hoặc không dẫn tới lời giải, quay lui và thử giá trị khác (backtracking).
+	+ Quá trình kết thúc khi:
+		. Tìm được lời giải phù hợp với goal, trả về True.
+		. Hoặc đã thử hết mà không đạt goal, trả về False.
+- Solution từ thuật toán Backtracking
+	+ Đặc điểm
+	. Ưu điểm:
+		. Có khả năng tìm toàn bộ không gian nghiệm, đảm bảo tìm ra lời giải (nếu có).
+		. Dễ kiểm soát ràng buộc phức tạp nhờ kiểm tra điều kiện trước khi đi tiếp.
+		. Rất phù hợp với các bài toán dạng Constraint Satisfaction Problem (CSP).
+	. Nhược điểm:
+		. Tốc độ chậm hơn so với các giải pháp heuristic vì phải thử nhiều tổ hợp.
+		. Hiệu suất thấp nếu không có chiến lược cải tiến (như forward checking, MRV, ...).
+		. Hiển thị trong chương trình
+		. Trạng thái lưới được vẽ bằng Pygame sau mỗi bước gán hoặc quay lui.
+		. Ô đang xét được tô màu và đánh dấu rõ ràng, dễ theo dõi quá trình giải.
+		. Khi tìm được lời giải:
+		. Trạng thái cuối được nhấp nháy để nhấn mạnh thành công.
+		. Hỗ trợ việc học và trình bày thuật toán một cách trực quan và sinh động.
 ```
 b. Thuật toán Backtracking With Forward Checking
 
-```
-  _ Các thành phần chính
+![Backtracking_forward checking](https://github.com/user-attachments/assets/46a293cb-1a4e-4ff2-8b9f-6d30f6bd46d3)
 
-    + Chuyển đổi trạng thái
-      . Mục đích: Chuyển trạng thái từ dạng ma trận (list[list]) sang tuple[tuple] để có thể lưu vào set (vì set chỉ chấp nhận kiểu dữ liệu hashable)
-      . Lợi ích: Giúp kiểm tra trạng thái đã thăm (visited) hiệu quả
-    + Hàm Heuristic (Manhattan Distance)
-      . Mục đích: Ước lượng khoảng cách từ trạng thái hiện tại đến trạng thái đích
-      . Cách tính: Tính tổng khoảng cách Manhattan của từng ô (trừ ô trống)
-      . Tác dụng: Giúp sắp xếp các bước đi tiềm năng theo thứ tự ưu tiên, tăng tốc độ tìm kiếm
-    + Hàm Backtrack đệ quy
-    ` . Tham số: current_state (trạng thái hiện tại), depth (độ sâu đệ quy)
-    + Điều kiện dừng
-      . Đạt đến max_depth (tránh stack overflow)
-      . Tìm thấy goal_state
-      . Trạng thái đã được thăm (visited)
-    + Forward Checking (Kiểm tra tiến)
-      . Mục đích: Kiểm tra các bước đi hợp lệ và loại bỏ những trạng thái đã thăm
-    + Quay lui (Backtracking)
-      . Thử từng bước đi (path.append)
-      . Nếu không tìm thấy lời giải (backtrack trả False), quay lui (path.pop)
-      . Xóa trạng thái khỏi visited để thử các nhánh khác
-  _ Phân tích solution
-    + Ưu điểm
-      . Forward Checking giúp loại bỏ sớm các trạng thái không khả thi
-      . Heuristic (Manhattan Distance) hướng dẫn tìm kiếm nhanh hơn
-      . max_depth giới hạn độ sâu đệ quy
-      . visited tránh xét lại các trạng thái đã thăm
-      . Tìm lời giải tối ưu (nếu heuristic đủ tốt)
-    + Nhược điểm
-      . Vẫn có độ phức tạp cao (O(b^d) trong trường hợp xấu nhất)
-      . Nếu manhattan_distance không đủ tốt, thuật toán có thể chậm
-      . Không đảm bảo tìm được lời giải ngắn nhất (vì không phải BFS)
-      
-  Thuật toán này cân bằng giữa tính đơn giản và hiệu suất, phù hợp cho các bài toán vừa và nhỏ.
 
-* Thuật toán Min-Conflicts
-
-  _ Các thành phần chính
-    + Khởi tạo trạng thái và bản đồ vị trí mục tiêu
-      . current: Lưu trạng thái hiện tại (dạng list để có thể thay đổi)
-      . goal_positions: Bản đồ lưu vị trí đúng của từng số trong trạng thái đích (giúp tính toán xung đột nhanh)
-    + Vòng lặp chính (tối đa max_steps)
-      . Mục đích: Lặp tối đa max_steps lần để tìm lời giải
-      . Kiểm tra điều kiện dừng: Nếu trạng thái hiện tại khớp với goal, trả về kết quả
-    + Phát hiện xung đột (conflict detection)
-      . Mục đích: Tìm tất cả các ô có giá trị không nằm đúng vị trí mục tiêu
-      . Cách tính xung đột: Khoảng cách Manhattan từ vị trí hiện tại đến vị trí đúng
-      . Kết quả: Danh sách conflicts chứa các ô cần điều chỉnh
-    + Chọn ô có xung đột lớn nhất
-      . Logic: Ưu tiên sửa những ô có sai lệch lớn nhất so với vị trí đúng
-      . Nếu không có xung đột: Dừng vòng lặp (đã giải xong)
-    + Tìm bước di chuyển tối ưu (chỉ di chuyển ô trống)
-      . Mục đích: Tìm hướng di chuyển ô trống làm giảm nhiều xung đột nhất
-      . Với mỗi ô lân cận ô trống, thử hoán đổi
-      . Tính toán số xung đột trước/sau khi di chuyển
-      . Chọn bước di chuyển giảm xung đột nhiều nhất
-    + Áp dụng bước di chuyển tốt nhất
-      . Thực hiện di chuyển: Hoán đổi ô trống với ô lân cận được chọn
-      . Trong 8-Puzzle, chỉ ô trống có thể di chuyển → thuật toán phải điều chỉnh để phù hợp
-  _ Phân tích Solution
-    + Ưu điểm
-      . Tập trung vào xung đột lớn nhất: Giúp giảm nhanh sai lệch so với mục tiêu
-      . Không cần backtracking: Tiết kiệm bộ nhớ so với các thuật toán quay lui
-      . Phù hợp với bài toán ràng buộc: Đặc biệt hiệu quả với CSP (Constraint Satisfaction Problems)
-    + Nhược điểm
-      . Không đảm bảo tìm được lời giải: Có thể mắc kẹt ở local optima
-      . Hiệu suất phụ thuộc vào heuristic: Nếu chọn sai ô để điều chỉnh, thuật toán có thể chậm
-      . Không tối ưu cho 8-Puzzle: Do chỉ di chuyển được ô trống, khả năng giảm xung đột bị hạn chế
-    + Giải thích lý do không giải được bài toán 8 puzzles
-      . Không gian trạng thái bị ràng buộc chặt
-      . Chỉ được phép di chuyển ô trống, không phải gán giá trị tùy ý
-      . Việc chuyển từ trạng thái này sang trạng thái khác bị giới hạn nghiêm ngặt bởi hành động hợp lệ
-      . Hàm đánh giá quá "mù mờ" và dễ kẹt
-      . Tổng khoảng cách Manhattan làm hàm xung đột — điều này giống với heuristic của A*, nhưng Min-Conflicts không đảm bảo thoát khỏi local minimum nếu không có random walk hay cơ chế nhảy thoát (như simulated annealing)
-```
-c. Thuật toán Min-Conflicts CSP
 ```
 - Các thành phần chính
-	+ Mô hình Min-Conflicts cho bài toán 8-puzzle
-		. Min-Conflicts là một thuật toán sửa sai cục bộ (local search) thường dùng trong các bài toán thỏa ràng ràng buộc (CSP), ví dụ như N-Queens.
-		. Trong 8-puzzle, nó được chuyển đổi để đánh giá các "xung đột" giữa vị trí hiện tại của các ô và vị trí mục tiêu của chúng trong trạng thái goal.
-		. Ý tưởng chính là: chọn ô có mức xung đột cao nhất (sai vị trí nhiều nhất) và cố gắng di chuyển nó đến vị trí nào giúp giảm sai lệch (tức là giảm khoảng cách Manhattan đến vị trí đúng).
-	+ Cấu trúc hàm min_conflicts_csp(start, goal)
-		. Đầu vào:
-			. start: trạng thái bắt đầu
-			. goal: trạng thái mục tiêu
-			. max_steps: số bước tối đa cho phép
-		. Khởi tạo:
-			. current_state: dạng 2D list từ start
-			. path: lưu vết các trạng thái đã đi qua
-		. Mỗi vòng lặp:
-			. Nếu trạng thái hiện tại khớp với goal, trả về path
-	+ Xử lý xung đột
-		. Tính xung đột cho từng ô khác vị trí mục tiêu:
-		. Dựa vào khoảng cách Manhattan giữa vị trí hiện tại và vị trí mục tiêu
-		. Chọn ô có xung đột cao nhất (lớn nhất khoảng cách)
-		. Duyệt các hướng có thể dịch chuyển ô đó đến ô trống
-		. Đánh giá mức cải thiện (giảm khoảng cách)
-		. Thực hiện nước đi có cải thiện tốt nhất (nếu có)
-	+ Kết thúc
-		. Thuật toán dừng khi:
-		. Trạng thái hiện tại là goal
-		. Hết số bước giới hạn
-		. Không còn nước đi cải thiện (tức là local minimum)
+	+ Không gian tìm kiếm và trạng thái
+		. current_state: ma trận 3x3 khởi tạo toàn số 0, đại diện cho trạng thái hiện tại của bài toán.
+		. variables: danh sách các vị trí trên lưới từ (0,0) đến (2,2), là các biến cần gán giá trị.
+		. domains: mỗi biến có tập giá trị khả dĩ là {1, 2, ..., 8}, tức là các số có thể xuất hiện trong lưới.
+	+ Hàm kiểm tra ràng buộc: is_valid()
+		. Kiểm tra xem giá trị vừa gán có vi phạm ràng buộc không:
+		. Không trùng với các giá trị cùng hàng.
+		. Không trùng với các giá trị cùng cột.
+		. Không trùng với giá trị đã xuất hiện ở các hàng phía trên (đảm bảo không trùng toàn cục).
+		. Đây là bước xác thực tính hợp lệ cục bộ và toàn cục để đảm bảo lời giải từng bước là hợp lệ.
+	+ Hàm hiển thị trạng thái: draw_state_with_current_var()
+		. Cập nhật giao diện mỗi khi gán giá trị hoặc backtrack.
+		. Ô hiện tại được tô vàng nhạt và hiển thị dấu "?" nếu chưa gán giá trị.
+		. Trạng thái lưới được vẽ bằng thư viện Pygame, giúp minh họa trực quan tiến trình giải bài toán.
+	+ Hàm forward checking: forward_check()
+		. Khi gán một giá trị, thuật toán sẽ kiểm tra tác động của nó lên các biến chưa gán:
+		. Cập nhật lại domain của các biến trong hàng, cột và các hàng phía trên.
+		. Nếu phát hiện có biến nào bị rỗng domain → quay lui ngay (cắt tỉa nhánh sai).
+		. Giúp loại bỏ sớm các nhánh không khả thi, tránh mất thời gian backtrack sau này.
+	+ Thuật toán chính: backtrack()
+		. Là hàm đệ quy thực hiện:
+		. Duyệt qua từng biến theo thứ tự.
+		. Thử từng giá trị trong domain.
+		. Hiển thị trạng thái sau mỗi bước gán.
+		. Kiểm tra ràng buộc và thực hiện forward checking.
+		. Nếu hợp lệ, tiếp tục đệ quy với biến tiếp theo.
+		. Nếu không thành công, quay lui và thử giá trị khác.
+	+ Quá trình kết thúc khi:
+		. Tìm được lời giải khớp với goal → trả về True.
+		. Hoặc đã thử hết các khả năng mà không thành công → trả về False.
+- Solution từ thuật toán Backtracking Forward Checking
++ Đặc điểm
+	. Ưu điểm:
+		. Có khả năng tìm được lời giải chính xác nếu tồn tại, nhờ tìm kiếm toàn bộ không gian nghiệm.
+		. Forward checking giúp cắt tỉa nhánh sai sớm, tăng hiệu suất.
+		. Phù hợp với các bài toán ràng buộc chặt chẽ, như Sudoku, Latin Square, hay bài toán phân công.
+	. Nhược điểm:
+		. Dù có cải tiến forward checking, nhưng vẫn có thể tốn thời gian khi không có thêm chiến lược heuristic (ví dụ: MRV, Degree).
+		. Chưa sử dụng kỹ thuật sắp xếp biến hay thứ tự giá trị tối ưu.
+	. Hiển thị trong chương trình
+		. Giao diện Pygame minh họa trực quan quá trình giải:
+		. Các bước gán giá trị và backtrack được hiển thị rõ ràng.
+		. Ô đang xét được tô màu và đánh dấu, dễ quan sát.
+		. Khi tìm được lời giải:
+			. Lưới nhấp nháy 10 lần để nhấn mạnh thành công.
+			. Giúp người học dễ hiểu và theo dõi thuật toán từng bước.
 
-- Solution từ thuật toán Min-Conflicts CSP
-	+ Đặc điểm
-		. Áp dụng chiến lược giảm xung đột cục bộ, không dựa vào chiến lược toàn cục như A* hay BFS
-		. Hiệu quả nếu xung đột có thể dần được loại bỏ
-		. Tuy nhiên, dễ rơi vào local minima nếu không có bước nhảy đột phá (giống như hill climbing)
-		. Không đảm bảo tìm được lời giải nếu gặp thế cờ “nghẽn”
-		. Có thể tăng khả năng thành công bằng cách thêm kỹ thuật restart hoặc stochastic move
-	+ Ưu điểm
-		. Đơn giản, không yêu cầu cấu trúc dữ liệu phức tạp
-		. Nhanh, phù hợp với các bài toán nhiều ràng buộc nhỏ
-	+ Hạn chế
-		. Phụ thuộc mạnh vào cấu hình khởi đầu
-		. Dễ rơi vào trạng thái “không cải thiện được thêm”
-	+ Hiển thị trong chương trình
-		. Trả về path: danh sách trạng thái đã thay đổi
-		. Có thể in số bước thực hiện, số lần xung đột giảm thành công
-		. So sánh hiệu suất với các thuật toán local search khác (Hill Climbing, Simulated Annealing)
+
+```
+2.5.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm nội bộ
+
+![SoSanhHieuSuat_CSP](https://github.com/user-attachments/assets/7d096717-db3c-430d-a8a5-d5475a600968)
+
+2.5.3 Nhận xét về hiệu suất các thuật toán
+```
+- Thuật toán Backtracking
+	+ Ưu điểm:
+		. Đơn giản, dễ cài đặt, dễ hiểu.
+		. Tìm kiếm toàn diện trong không gian nghiệm, đảm bảo tìm được lời giải (nếu có).
+	+ Nhược điểm:
+		. Tốc độ chậm khi không có cơ chế cắt tỉa thông minh.
+		. Có thể thử nhiều tổ hợp không hợp lệ trước khi phát hiện sai và quay lui.
+		. Không phát hiện sớm các ràng buộc bất khả thi → tốn thời gian không cần thiết.
+- Thuật toán Backtracking with Forward Checking
+	+ Ưu điểm:
+		. Tăng hiệu suất rõ rệt bằng cách loại bỏ sớm các giá trị không hợp lệ khỏi domain của các biến chưa gán.
+		. Hạn chế số lần quay lui, đặc biệt hiệu quả trong các bài toán có ràng buộc chặt chẽ.
+		. Giảm số bước thử nghiệm so với backtracking đơn thuần.
+	+ Nhược điểm:
+		. Cần thêm xử lý để duy trì và cập nhật domain → tăng độ phức tạp khi cài đặt.
+		. Vẫn chưa tận dụng tối ưu nếu không kết hợp thêm các chiến lược heuristic như MRV (Minimum Remaining Values) hoặc Degree Heuristic.
 ```
 
 2.6 Các thuật toán tìm kiếm Reinforcement Learning
