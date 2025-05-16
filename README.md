@@ -476,9 +476,11 @@ f. Thuật toán Genetic Algorithm
 	・Biểu đồ biểu diễn tiến trình cải thiện fitness qua các thế hệ
 ```
 
-2.3.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm nội bộ  
+2.3.2 Hình ảnh so sánh hiệu suất các thuật toán trong nhóm thuật toán tìm kiếm nội bộ  
 
 ![SoSanhHieuSuat_Local Search](https://github.com/user-attachments/assets/78a410ad-e0d9-4a26-a5dd-9db641f517d0)
+
+![image](https://github.com/user-attachments/assets/5ced8480-8582-4fa2-891c-b760337c2b67)
 
 2.3.3 Nhận xét về hiệu suất các thuật toán
 
@@ -742,6 +744,8 @@ b. Thuật toán Backtracking With Forward Checking
 2.5.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm nội bộ
 
 ![SoSanhHieuSuat_CSP](https://github.com/user-attachments/assets/7d096717-db3c-430d-a8a5-d5475a600968)
+
+![image](https://github.com/user-attachments/assets/1bb557b7-5d94-4c33-9e35-5a03e6e89aec)
 
 2.5.3 Nhận xét về hiệu suất các thuật toán
 ```
