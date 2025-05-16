@@ -142,9 +142,9 @@ Báo cáo đồ án cá nhân (8-puzzles)
    
    ![SoSanhHieuXuat_Uninformed Search](https://github.com/user-attachments/assets/d5c9bb95-066e-43c7-9cc0-23927365d460)  
 
-   ![image](https://github.com/user-attachments/assets/9e21d9a2-19a1-4d22-bd67-10760da9d877)
+   ![image](https://github.com/user-attachments/assets/3f316fd9-953d-4074-aa36-96e46df42124)
 
-   
+
    2.1.3 Nhận xét về hiệu suất các thuật toán
    ```
 	   - BFS đảm bảo tìm ra lời giải ngắn nhất về số bước, nhưng tiêu tốn rất nhiều bộ nhớ do phải lưu toàn bộ trạng thái ở từng mức sâu. Với bài toán như 8-puzzle, BFS dễ bị giới hạn tài nguyên khi độ sâu tăng.
