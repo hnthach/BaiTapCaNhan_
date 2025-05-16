@@ -247,10 +247,11 @@ c. Greedy
 		. Thông tin thời gian thực thi được hiển thị
 		. Các bước di chuyển được highlight nếu chương trình có hỗ trợ
 ```
-2.2.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm có thông tin  
+2.2.2 Hình ảnh so sánh hiệu suất các thuật toán trong nhóm thuật toán tìm kiếm có thông tin  
 
 ![SoSanhHieuSuat_Informed Search](https://github.com/user-attachments/assets/fcc6a19b-6d18-45fb-a0e9-80689435dae8)
 
+![image](https://github.com/user-attachments/assets/d4b04da8-caf8-420b-a1d5-9764f43bbe43)
 
 2.2.3 Nhận xét về hiệu suất các thuật toán
 ```
