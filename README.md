@@ -137,12 +137,13 @@ Báo cáo đồ án cá nhân (8-puzzles)
 		   . Thời gian thực thi phụ thuộc vào độ sâu lời giải và số nhánh trung bình (b), với độ phức tạp O(b^d) (như BFS).
 		   . Tuy nhiên, UCS mở rộng theo chi phí nên có thể hiệu quả hơn BFS nếu áp dụng vào bài toán có chi phí khác nhau giữa các bước.
 ```
-   2.1.2 Hình ảnh so sánh các thuật toán trong nhóm thuật toán tìm kiếm không có thông tin  
+   2.1.2 Hình ảnh so sánh hiệu suất các thuật toán trong nhóm thuật toán tìm kiếm không có thông tin  
 
    
    ![SoSanhHieuXuat_Uninformed Search](https://github.com/user-attachments/assets/d5c9bb95-066e-43c7-9cc0-23927365d460)  
 
-   ![image](https://github.com/user-attachments/assets/64f7e372-caed-4491-83e0-24965aa6e801)
+   ![image](https://github.com/user-attachments/assets/9e21d9a2-19a1-4d22-bd67-10760da9d877)
+
    
    2.1.3 Nhận xét về hiệu suất các thuật toán
    ```
