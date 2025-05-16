@@ -247,6 +247,7 @@ c. Greedy
 2.2.2 Hình ảnh gif so sánh các thuật toán trong nhóm thuật toán tìm kiếm có thông tin  
 
 ![SoSanhHieuSuat_Informed Search](https://github.com/user-attachments/assets/fcc6a19b-6d18-45fb-a0e9-80689435dae8)
+![image](https://github.com/user-attachments/assets/64f7e372-caed-4491-83e0-24965aa6e801)
 
 2.2.3 Nhận xét về hiệu suất các thuật toán
 ```
