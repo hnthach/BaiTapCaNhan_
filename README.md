@@ -636,8 +636,20 @@ c. Thuật toán tìm kiếm không quan sát
 		. Trả về đường đi đã khám phá
 		. Có thể hiển thị số bước đã đi, số trạng thái đã thăm
 		. Có thể đánh giá: mất bao nhiêu bước, tỷ lệ thành công, tốc độ tìm ra lời giải
-
 ```
+2.4.2 Hình ảnh so sánh hiệu suất các thuật toán trong nhóm thuật toán tìm kiếm nội bộ  
+
+![image](https://github.com/user-attachments/assets/5099c186-f245-4020-a8a0-ccf0a29b156f)
+
+2.4.3 Nhận xét về hiệu suất các thuật toán
+```
+- Dựa trên kết quả thực nghiệm và biểu đồ so sánh, ta có thể đưa ra một số nhận xét về hiệu suất của các thuật toán trong môi trường phức tạp như sau:
+•	Nondeterministic Search là thuật toán có hiệu suất tốt nhất trong nhóm, với số bước thực hiện ít nhất (40 bước) và thời gian xử lý ngắn (0.28 giây). Điều này cho thấy việc sử dụng heuristic điều chỉnh theo xác suất thành công giúp dẫn đường hiệu quả, dù môi trường không chắc chắn.
+•	Partial Observation Search có số bước và thời gian cao hơn (52 bước, 0.34 giây) do thiếu thông tin đầy đủ về trạng thái, dẫn đến việc thuật toán phải dò đoán nhiều và cập nhật trạng thái niềm tin (belief states) liên tục. Mặc dù vậy, nó vẫn đảm bảo khả năng tiến gần tới mục tiêu nhờ cơ chế tiết lộ dần thông tin.
+•	No Observation Search có hiệu suất kém nhất, với số bước cao nhất (78 bước) và thời gian lâu nhất (0.41 giây). Do không có khả năng quan sát, tác nhân chỉ có thể di chuyển ngẫu nhiên và ghi nhớ để tránh lặp, dẫn đến việc mất nhiều bước không cần thiết và tốn thời gian.
+- Hiệu suất của các thuật toán trong môi trường phức tạp phụ thuộc mạnh vào mức độ quan sát và định hướng trong hành động. Các thuật toán có sử dụng heuristic hoặc thông tin niềm tin (belief) đạt hiệu quả cao hơn rõ rệt so với các thuật toán không có khả năng quan sát. Điều này phản ánh tính thực tiễn của việc mô hình hóa tri thức và thông tin trong các hệ thống AI hoạt động trong môi trường không hoàn hảo.
+```
+
 2.5 Các thuật toán tìm kiếm Constraint Satisfaction Problems (CSPs)  
 
 a. Thuật toán Backtracking
